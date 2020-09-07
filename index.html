@@ -115,7 +115,16 @@
 			},
 			GetQuestion: function () {
 				return answerMathField.latex();
-			},
+            },
+            RenderQuizInterface: function () {
+                MQ.StaticMath(document.getElementById("quizQuestion"))
+
+                for (var ele of document.getElementsByClassName("quiz-button-latex")) {
+                    MQ.StaticMath(ele);
+                }
+
+            },
+
 			RenderLatexList: function (latexList) {
 
 				console.log(latexList[4].length)
