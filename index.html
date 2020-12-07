@@ -201,6 +201,12 @@
                 } else {
                     $("#kmapContainer").css("display", "none")
                 }
+
+                if (latexList[5]) {
+                    $("#errorLocation").text("WARNING: Solution is not complete. Unable to apply redundancy theorem.");
+                } else {
+                    $("#errorLocation").text("");
+                }
             },
             RenderLatex: function () {
                 var stepdata = document.getElementsByClassName("step-data");
