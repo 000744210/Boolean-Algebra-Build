@@ -96,10 +96,12 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2]);
         }
+        console.log("wtf")
         var isFirstVisit = true;
-        var answerMathField
+        var answerMathField = null;
         window.JsFunc = {
             BooleanAlgebraPageInit: function () {
+                
                 var answerSpan = document.getElementById('question');
                 answerMathField = MQ.MathField(answerSpan);
                 setTimeout(function () {
@@ -110,6 +112,16 @@
                         document.getElementById("submit-btn").click();
                     }
                 }, 3000)
+
+                var ad = document.getElementById("nord-ad")
+                /*ad.addEventListener("click", function () {
+                    window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
+                })*/
+                setTimeout(function () {
+                    
+                    ad.className = ad.className + " slide"
+
+                },3000)
             },
             BooleanAlgebraSolveClick: function () {
                 DotNet.invokeMethodAsync("Boolean-Algebra", "SolveLatex", answerMathField.latex())

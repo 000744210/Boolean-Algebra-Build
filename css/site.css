@@ -149,6 +149,7 @@ hr {
 
 .main {
 	flex: 1;
+	overflow:hidden;
 }
 
 	.main .top-row {
@@ -282,3 +283,40 @@ hr {
 	}
 }
 
+@media (max-width: 1300px) {
+	.nord-ad-div {
+		background-size: contain;
+		width: 400px;
+		background-image: url("/img/bottom.gif");
+		background-repeat: no-repeat;
+		height: 209.3333333px;
+	}
+	.nord-ad-outter {
+		display: table;
+		margin: auto;
+		transform: translate(0px, 1000px)
+	}
+}
+.nord-ad {
+	cursor:pointer;
+}
+@media (min-width: 1300px) {
+	.nord-ad-div {
+		background-size: contain;
+		width: 300px;
+		background-image: url("/img/right.gif");
+		background-repeat: no-repeat;
+		height: 300px;
+	}
+	.nord-ad-outter {
+		display: inline;
+		position: fixed;
+		top: 114px;
+		transform: translate(-1000px, 0px)
+	}
+}
+
+.slide {
+	transition: 1s;
+	transform: translate(0px, 0px);
+}
