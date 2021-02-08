@@ -96,7 +96,6 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2]);
         }
-        console.log("wtf")
         var isFirstVisit = true;
         var answerMathField = null;
         window.JsFunc = {
@@ -112,16 +111,19 @@
                         document.getElementById("submit-btn").click();
                     }
                 }, 3000)
+                try {
+                    var ad = document.getElementById("nord-ad")
+                    /*ad.addEventListener("click", function () {
+                        window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
+                    })*/
+                    setTimeout(function () {
 
-                var ad = document.getElementById("nord-ad")
-                /*ad.addEventListener("click", function () {
-                    window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
-                })*/
-                setTimeout(function () {
-                    
-                    ad.className = ad.className + " slide"
+                        ad.className = ad.className + " slide"
 
-                },3000)
+                    }, 3000)
+                } catch (e) {
+                    console.log(e);
+                }
             },
             BooleanAlgebraSolveClick: function () {
                 DotNet.invokeMethodAsync("Boolean-Algebra", "SolveLatex", answerMathField.latex())
