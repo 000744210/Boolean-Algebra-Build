@@ -149,7 +149,6 @@ hr {
 
 .main {
 	flex: 1;
-	overflow:hidden;
 }
 
 	.main .top-row {
@@ -296,6 +295,7 @@ hr {
 		margin: auto;
 		transform: translate(0px, 1000px)
 	}
+
 }
 .nord-ad {
 	cursor:pointer;
@@ -312,7 +312,7 @@ hr {
 		display: inline;
 		position: fixed;
 		top: 114px;
-		transform: translate(-1000px, 0px)
+		transform: translate(-400px, 0px)
 	}
 }
 
