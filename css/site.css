@@ -285,7 +285,6 @@ hr {
 @media (max-width: 1300px) {
 	.nord-ad-div {
 		background-size: contain;
-		width: 400px;
 		background-image: url("/img/bottom.gif");
 		background-repeat: no-repeat;
 		height: 209.3333333px;
@@ -293,7 +292,9 @@ hr {
 	.nord-ad-outter {
 		display: table;
 		margin: auto;
-		transform: translate(0px, 1000px)
+		transform: translate(0px, 1000px);
+		width:100%;
+		max-width: 400px;
 	}
 
 }
