@@ -287,12 +287,12 @@ hr {
 		background-size: contain;
 		background-image: url("/img/bottom.gif");
 		background-repeat: no-repeat;
-		height: 209.3333333px;
+		height: 180.333333px;
 	}
 	.nord-ad-outter {
 		display: table;
 		margin: auto;
-		transform: translate(0px, 1000px);
+		transform: translate(-1000px, 0px);
 		width:100%;
 		max-width: 400px;
 	}
@@ -313,7 +313,7 @@ hr {
 		display: inline;
 		position: fixed;
 		top: 114px;
-		transform: translate(-400px, 0px)
+		transform: translate(-1000px, 0px)
 	}
 }
 
