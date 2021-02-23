@@ -57,30 +57,42 @@
     </app>
     <script type="text/javascript">
 
-        atOptionsList = [{
-            'key': 'aa401f6589ea8ced1b4f53462a4f797c',
-            'format': 'iframe',
-            'height': 250,
-            'width': 300,
-            'params': {}
-        },
-        {
-            'key': 'ebfe6c66c8a7ba4ddd8a045ac0f276ce',
-            'format': 'iframe',
-            'height': 50,
-            'width': 320,
-            'params': {}
-        },
-        {
-            'key': '7ddcc2f0513abf04bc423459526d3ecc',
-            'format': 'iframe',
-            'height': 60,
-            'width': 468,
-            'params': {}
-        }
+        atOptionsBottomList = [
+            {
+                'key': 'aa401f6589ea8ced1b4f53462a4f797c',
+                'format': 'iframe',
+                'height': 250,
+                'width': 300,
+                'min-width': 320,
+                'params': {}
+            },
+            {
+                'key': 'ebfe6c66c8a7ba4ddd8a045ac0f276ce',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'min-width': 350,
+                'params': {}
+            },
+            {
+                'key': '7ddcc2f0513abf04bc423459526d3ecc',
+                'format': 'iframe',
+                'height': 60,
+                'width': 468,
+                'min-width': 500,
+                'params': {}
+            },
+            {
+                'key': '6ce9b4b94bc8b7b7bbe3169ed36d81e4',
+                'format': 'iframe',
+                'height': 90,
+                'width': 728,
+                'min-width': 750,
+                'params': {}
+            }
         ]
-
-        atOptions = atOptionsList[Math.floor(Math.random() * atOptionsList.length)];
+        atOptionsBottomList = atOptionsBottomList.filter(function (a) { return window.innerWidth >= a['min-width'] })
+        atOptions = atOptionsBottomList[Math.floor(Math.random() * atOptionsBottomList.length)];
 
     </script>
     <script type="blazor-boot">
@@ -142,26 +154,27 @@
                     }
                 }, 3000)
                 try {
-                    var ad = document.getElementById("nord-ad");
-                    var script = document.createElement("script");
+                    if (atOptions) {
+                        var ad = document.getElementById("nord-ad");
+                        var script = document.createElement("script");
 
-                    script.src = "https://www.displaynetworkcontent.com/" + atOptions.key + "/invoke.js";
-                    ad.appendChild(script)
-                    /*ad.addEventListener("click", function () {
-                        window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
-                    })*/
-                    setTimeout(function () {
+                        script.src = "https://www.displaynetworkcontent.com/" + atOptions.key + "/invoke.js";
+                        ad.appendChild(script)
+                        /*ad.addEventListener("click", function () {
+                            window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
+                        })
+                        setTimeout(function () {
 
-                        ad.className = ad.className + " slide"
+                            ad.className = ad.className + " slide"
 
-                    }, 3000)
+                        }, 3000)*/
 
-                    setTimeout(function () {
+                        setTimeout(function () {
 
-                        ad.className = ad.className + " wiggler"
+                            ad.className = ad.className + " wiggler"
 
-                    }, 20000)
-
+                        }, 20000)
+                    }
                 } catch (e) {
                     console.log(e);
                 }
