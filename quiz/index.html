@@ -58,38 +58,38 @@
     <script type="text/javascript">
 
         atOptionsBottomList = [
-             {
-                 'key': 'aa401f6589ea8ced1b4f53462a4f797c',
-                 'format': 'iframe',
-                 'height': 250,
-                 'width': 300,
-                 'min-width': 320,
-                 'params': {}
-             },
-             {
-                 'key': 'ebfe6c66c8a7ba4ddd8a045ac0f276ce',
-                 'format': 'iframe',
-                 'height': 50,
-                 'width': 320,
-                 'min-width': 350,
-                 'params': {}
-             },
-             {
-                 'key': '7ddcc2f0513abf04bc423459526d3ecc',
-                 'format': 'iframe',
-                 'height': 60,
-                 'width': 468,
-                 'min-width': 500,
-                 'params': {}
-             },
-             {
-                 'key': '6ce9b4b94bc8b7b7bbe3169ed36d81e4',
-                 'format': 'iframe',
-                 'height': 90,
-                 'width': 728,
-                 'min-width':750,
-                 'params': {}
-             }
+            {
+                'key': 'aa401f6589ea8ced1b4f53462a4f797c',
+                'format': 'iframe',
+                'height': 250,
+                'width': 300,
+                'min-width': 320,
+                'params': {}
+            },
+            {
+                'key': 'ebfe6c66c8a7ba4ddd8a045ac0f276ce',
+                'format': 'iframe',
+                'height': 50,
+                'width': 320,
+                'min-width': 350,
+                'params': {}
+            },
+            {
+                'key': '7ddcc2f0513abf04bc423459526d3ecc',
+                'format': 'iframe',
+                'height': 60,
+                'width': 468,
+                'min-width': 500,
+                'params': {}
+            },
+            {
+                'key': '6ce9b4b94bc8b7b7bbe3169ed36d81e4',
+                'format': 'iframe',
+                'height': 90,
+                'width': 728,
+                'min-width': 750,
+                'params': {}
+            }
         ]
         atOptionsBottomList = atOptionsBottomList.filter(function (a) { return window.innerWidth >= a['min-width'] })
         atOptions = atOptionsBottomList[Math.floor(Math.random() * atOptionsBottomList.length)];
@@ -102,6 +102,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/mq/mathquill.js"></script>
     <script>
+        var proxyOpen = window.open;
+        window.open = function () {
+            if (window.confirm("You are about to leave this website. Are you sure?")) {
+                proxyOpen(...arguments)
+            }
+        }
+
         var MQ = MathQuill.getInterface(2);
         function connectHoverEvents(classes) {
             for (let i = 0; i < classes.length; i++) {
