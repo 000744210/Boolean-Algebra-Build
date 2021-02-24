@@ -172,19 +172,20 @@
 
             },
             OnPageLoadGlobal: function () {
-                var ad = `<div id="790464927">
-        <script type='text/javascript'>
-            try {
-                window._mNHandle.queue.push(function (){
-                    window._mNDetails.loadTag("790464927", "300x250", "790464927");
-                });
-            }
-            catch (error) {}
-        <\/script>
-</div>`
+                var div = document.createElement("div")
+                div.id = "790464927"
+                document.getElementById('ad-spot').appendChild(div)
 
+                var script = document.createElement("script");
+                script.text = `console.log("testtt2")
+                    try {
+                        window._mNHandle.queue.push(function (){
+                            window._mNDetails.loadTag("790464927", "300x250", "790464927");
+                        });
+                    }
+                    catch (error) {}`
 
-                document.getElementById('ad-spot').innerHTML = ad;
+                div.appendChild(script)
             },
             BooleanAlgebraPageInit: function () {
 
@@ -226,16 +227,16 @@ ad.className = ad.className + " slide"
 
 }, 3000)*//*
 
-                                                                        setTimeout(function () {
+                                                                                                                setTimeout(function () {
 
-                                                                            ad.className = ad.className + " wiggler"
+                                                                                                                    ad.className = ad.className + " wiggler"
 
-                                                                        }, 20000)
-                                                                    }
-                                                                } catch (e) {
-                                                                    console.log(e);
-                                                                }
-                                                            }*/
+                                                                                                                }, 20000)
+                                                                                                            }
+                                                                                                        } catch (e) {
+                                                                                                            console.log(e);
+                                                                                                        }
+                                                                                                    }*/
                     isFirstVisit = false;
                 }, 3000)
 
