@@ -172,9 +172,10 @@
 
             },
             OnPageLoadGlobal: function () {
+                if (document.getElementById("ad-spot").children.length > 0) return;
+
                 var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' },
                 { id: "732581658", params: '("732581658", "728x90", "732581658")' },
-                { id: "820709614", params: '("820709614", "160x600", "820709614")' },
                 { id: "707357592", params: '("707357592", "300x600", "707357592")' }]
 
                 chosenFormat = adFormats[Math.floor(Math.random() * adFormats.length)];
