@@ -172,15 +172,22 @@
 
             },
             OnPageLoadGlobal: function () {
+                var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' },
+                    { id: "732581658", params: '("732581658", "728x90", "732581658")' },
+                    { id: "820709614", params: '("820709614", "160x600", "820709614")' },
+                    { id: "707357592", params: '("707357592", "300x600", "707357592")' }]
+
+                chosenFormat = adFormats[Math.floor(Math.random() * adFormats.length)];
+
                 var div = document.createElement("div")
-                div.id = "790464927"
+                div.id = chosenFormat.id
                 document.getElementById('ad-spot').appendChild(div)
 
                 var script = document.createElement("script");
-                script.text = `console.log("testtt2")
+                script.text = `
                     try {
                         window._mNHandle.queue.push(function (){
-                            window._mNDetails.loadTag("790464927", "300x250", "790464927");
+                            window._mNDetails.loadTag`+ chosenFormat.params+`;
                         });
                     }
                     catch (error) {}`
