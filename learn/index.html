@@ -169,18 +169,23 @@
         var answerMathField = null;
         window.JsFunc = {
             OnPageFirstLoadGlobal: function () {
-                var script = document.createElement("script");
-                script.type = 'text/javascript';
-                script.text = `
-                                try {
-                                    window._mNHandle.queue.push(function (){
-                                        window._mNDetails.loadTag("790464927", "300x250", "790464927");
-                                    });
-                                }
-                                catch (error) {}`
-                document.getElementById('790464927').appendChild(script)
-            },
 
+            },
+            OnPageLoadGlobal: function () {
+                var ad = `<div id="790464927">
+        <script type='text/javascript'>
+            try {
+                window._mNHandle.queue.push(function (){
+                    window._mNDetails.loadTag("790464927", "300x250", "790464927");
+                });
+            }
+            catch (error) {}
+        <\/script>
+</div>`
+
+
+                document.getElementById('ad-spot').innerHTML = ad;
+            },
             BooleanAlgebraPageInit: function () {
 
                 var answerSpan = document.getElementById('question');
