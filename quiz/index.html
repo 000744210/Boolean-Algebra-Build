@@ -172,28 +172,47 @@
 
             },
             OnPageLoadGlobal: function () {
-                if (document.getElementById("ad-spot").children.length > 0) return;
+                if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
 
-                var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' }/*,
-                { id: "732581658", params: '("732581658", "728x90", "732581658")' },
-                { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
+                    var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' }/*,
+                        { id: "732581658", params: '("732581658", "728x90", "732581658")' },
+                        { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
 
-                chosenFormat = adFormats[Math.floor(Math.random() * adFormats.length)];
+                    chosenFormat = { id: "790464927", params: '("790464927", "300x250", "790464927")' }
 
-                var div = document.createElement("div")
-                div.id = chosenFormat.id
-                document.getElementById('ad-spot').appendChild(div)
+                    var div = document.createElement("div")
+                    div.id = chosenFormat.id
+                    document.getElementById('ad-spot').appendChild(div)
 
-                var script = document.createElement("script");
-                script.text = `
-                        try {
-                            window._mNHandle.queue.push(function (){
-                                window._mNDetails.loadTag`+ chosenFormat.params + `;
-                            });
-                        }
-                        catch (error) {}`
+                    var script = document.createElement("script");
+                    script.text = `
+                                try {
+                                    window._mNHandle.queue.push(function (){
+                                        window._mNDetails.loadTag`+ chosenFormat.params + `;
+                                    });
+                                }
+                                catch (error) {}`
 
-                div.appendChild(script)
+                    div.appendChild(script)
+                }
+                if (document.getElementById("ad-spot2") && document.getElementById("ad-spot2").children.length == 0 && window.innerWidth > 950) {
+
+                    chosenFormat = { id: "820709614", params: '("820709614", "160x600", "820709614")' }
+                    div = document.createElement("div")
+                    div.id = chosenFormat.id
+                    document.getElementById('ad-spot2').appendChild(div)
+
+                    script = document.createElement("script");
+                    script.text = `
+                                try {
+                                    window._mNHandle.queue.push(function (){
+                                        window._mNDetails.loadTag`+ chosenFormat.params + `;
+                                    });
+                                }
+                                catch (error) {}`
+
+                    div.appendChild(script)
+                }
             },
             BooleanAlgebraPageInit: function () {
 
@@ -235,16 +254,16 @@ ad.className = ad.className + " slide"
 
 }, 3000)*//*
 
-                                                                                                                                    setTimeout(function () {
+                                                                                                                                                                            setTimeout(function () {
 
-                                                                                                                                        ad.className = ad.className + " wiggler"
+                                                                                                                                                                                ad.className = ad.className + " wiggler"
 
-                                                                                                                                    }, 20000)
-                                                                                                                                }
-                                                                                                                            } catch (e) {
-                                                                                                                                console.log(e);
-                                                                                                                            }
-                                                                                                                        }*/
+                                                                                                                                                                            }, 20000)
+                                                                                                                                                                        }
+                                                                                                                                                                    } catch (e) {
+                                                                                                                                                                        console.log(e);
+                                                                                                                                                                    }
+                                                                                                                                                                }*/
                     isFirstVisit = false;
                 }, 3000)
 
@@ -417,7 +436,7 @@ ad.className = ad.className + " slide"
                 this.draw(canvas);
 
                 if (this.eventRef.event) {
-                    this.eventRef.element.removeEventListener("mousemove", this.eventRef)
+                    this.eventRef.element.removeEventListener("mousemove", this.eventRef) // TODO: I might have meant this.eventRef.event
                 }
                 this.eventRef.element = canvas;
                 this.eventRef.event = event => {

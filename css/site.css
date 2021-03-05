@@ -438,3 +438,15 @@ hr {
 	display:block;
 }
 
+#ad-spot2 {
+	position: fixed;
+
+	top: 0;
+	left: 0;
+}
+
+@media (max-width: 950px) {
+	#ad-spot2 {
+		display: none;
+	}
+}
