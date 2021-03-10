@@ -26,7 +26,9 @@
     <script src="https://contextual.media.net/dmedianet.js?cid=8CUPIA1C1" async="async"></script>
 </head>
 <body>
+    <div id="ad-manipulator" style=" transform: translateX(-100000px); height: 0;">
 
+    </div>
     <app>
         <canvas id="loaderCanvas" style="width:200px;height:200px;margin-left:auto;margin-right:auto;display:block"></canvas>
         <h2 style="text-align:center;margin-left:auto;margin-right:auto;display:block">Loading...</h2>
@@ -172,11 +174,17 @@
 
             },
             OnPageLoadGlobal: function () {
+                var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
+                if (!isBot) {
+                    var adManipulator = document.getElementById("ad-manipulator")
+                    adManipulator.innerHTML = "<h1>Programming Class</h1><h1>Circuits</h1><h1>Programming</h1><h1>How to program</h1><h1>Learn programming</h1><h1>Top paid programming languages</h1><h1>How to make money programming</h1><h1>Learn programming quick</h1><h1>Software development</h1>"
+                }
+
                 if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
 
                     var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' }/*,
-                    { id: "732581658", params: '("732581658", "728x90", "732581658")' },
-                    { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
+                                { id: "732581658", params: '("732581658", "728x90", "732581658")' },
+                                { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
 
                     chosenFormat = { id: "790464927", params: '("790464927", "300x250", "790464927")' }
 
@@ -186,17 +194,17 @@
 
                     var script = document.createElement("script");
                     script.text = `
-                            try {
-                                window._mNHandle.queue.push(function (){
-                                    window._mNDetails.loadTag`+ chosenFormat.params + `;
-                                });
-                            }
-                            catch (error) {}`
+                                        try {
+                                            window._mNHandle.queue.push(function (){
+                                                window._mNDetails.loadTag`+ chosenFormat.params + `;
+                                            });
+                                        }
+                                        catch (error) {}`
 
                     div.appendChild(script)
                 }
                 if (document.getElementById("ad-spot2") && document.getElementById("ad-spot2").children.length == 0 && window.innerWidth > 950) {
-                    
+
                     chosenFormat = { id: "820709614", params: '("820709614", "160x600", "820709614")' }
                     div = document.createElement("div")
                     div.id = chosenFormat.id
@@ -204,12 +212,12 @@
 
                     script = document.createElement("script");
                     script.text = `
-                            try {
-                                window._mNHandle.queue.push(function (){
-                                    window._mNDetails.loadTag`+ chosenFormat.params + `;
-                                });
-                            }
-                            catch (error) {}`
+                                        try {
+                                            window._mNHandle.queue.push(function (){
+                                                window._mNDetails.loadTag`+ chosenFormat.params + `;
+                                            });
+                                        }
+                                        catch (error) {}`
 
                     div.appendChild(script)
                 }
@@ -254,16 +262,16 @@ ad.className = ad.className + " slide"
 
 }, 3000)*//*
 
-                                                                                                                                                        setTimeout(function () {
+                                                                                                                                                                                                                    setTimeout(function () {
 
-                                                                                                                                                            ad.className = ad.className + " wiggler"
+                                                                                                                                                                                                                        ad.className = ad.className + " wiggler"
 
-                                                                                                                                                        }, 20000)
-                                                                                                                                                    }
-                                                                                                                                                } catch (e) {
-                                                                                                                                                    console.log(e);
-                                                                                                                                                }
-                                                                                                                                            }*/
+                                                                                                                                                                                                                    }, 20000)
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                            } catch (e) {
+                                                                                                                                                                                                                console.log(e);
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                        }*/
                     isFirstVisit = false;
                 }, 3000)
 
