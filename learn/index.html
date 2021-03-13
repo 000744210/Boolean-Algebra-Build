@@ -17,7 +17,7 @@
 
         gtag('config', 'UA-150354135-1');
     </script>
-
+    <script data-ad-client="ca-pub-3710933901766821" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script type="text/javascript">
         window._mNHandle = window._mNHandle || {};
         window._mNHandle.queue = window._mNHandle.queue || [];
@@ -183,8 +183,8 @@
                 if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
 
                     var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' }/*,
-                                { id: "732581658", params: '("732581658", "728x90", "732581658")' },
-                                { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
+                                    { id: "732581658", params: '("732581658", "728x90", "732581658")' },
+                                    { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
 
                     chosenFormat = { id: "790464927", params: '("790464927", "300x250", "790464927")' }
 
@@ -194,12 +194,12 @@
 
                     var script = document.createElement("script");
                     script.text = `
-                                        try {
-                                            window._mNHandle.queue.push(function (){
-                                                window._mNDetails.loadTag`+ chosenFormat.params + `;
-                                            });
-                                        }
-                                        catch (error) {}`
+                                            try {
+                                                window._mNHandle.queue.push(function (){
+                                                    window._mNDetails.loadTag`+ chosenFormat.params + `;
+                                                });
+                                            }
+                                            catch (error) {}`
 
                     div.appendChild(script)
                 }
@@ -212,12 +212,12 @@
 
                     script = document.createElement("script");
                     script.text = `
-                                        try {
-                                            window._mNHandle.queue.push(function (){
-                                                window._mNDetails.loadTag`+ chosenFormat.params + `;
-                                            });
-                                        }
-                                        catch (error) {}`
+                                            try {
+                                                window._mNHandle.queue.push(function (){
+                                                    window._mNDetails.loadTag`+ chosenFormat.params + `;
+                                                });
+                                            }
+                                            catch (error) {}`
 
                     div.appendChild(script)
                 }
@@ -262,16 +262,16 @@ ad.className = ad.className + " slide"
 
 }, 3000)*//*
 
-                                                                                                                                                                                                                    setTimeout(function () {
+                                                                                                                                                                                                                                        setTimeout(function () {
 
-                                                                                                                                                                                                                        ad.className = ad.className + " wiggler"
+                                                                                                                                                                                                                                            ad.className = ad.className + " wiggler"
 
-                                                                                                                                                                                                                    }, 20000)
-                                                                                                                                                                                                                }
-                                                                                                                                                                                                            } catch (e) {
-                                                                                                                                                                                                                console.log(e);
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                        }*/
+                                                                                                                                                                                                                                        }, 20000)
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                } catch (e) {
+                                                                                                                                                                                                                                    console.log(e);
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                            }*/
                     isFirstVisit = false;
                 }, 3000)
 
