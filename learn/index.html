@@ -174,52 +174,34 @@
 
             },
             OnPageLoadGlobal: function () {
-                var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
-                if (!isBot) {
-                    var adManipulator = document.getElementById("ad-manipulator")
-                    adManipulator.innerHTML = "<h1>Programming Class</h1><h1>Circuits</h1><h1>Programming</h1><h1>How to program</h1><h1>Learn programming</h1><h1>Top paid programming languages</h1><h1>How to make money programming</h1><h1>Learn programming quick</h1><h1>Software development</h1>"
-                }
+
 
                 if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
-
-                    var adFormats = [{ id: "790464927", params: '("790464927", "300x250", "790464927")' }/*,
-                                    { id: "732581658", params: '("732581658", "728x90", "732581658")' },
-                                    { id: "707357592", params: '("707357592", "300x600", "707357592")' }*/]
-
-                    chosenFormat = { id: "790464927", params: '("790464927", "300x250", "790464927")' }
-
                     var div = document.createElement("div")
-                    div.id = chosenFormat.id
-                    document.getElementById('ad-spot').appendChild(div)
-
                     var script = document.createElement("script");
-                    script.text = `
-                                            try {
-                                                window._mNHandle.queue.push(function (){
-                                                    window._mNDetails.loadTag`+ chosenFormat.params + `;
-                                                });
-                                            }
-                                            catch (error) {}`
+                    script.async = true;
+                    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
 
-                    div.appendChild(script)
+                    var ins = document.createElement("ins");
+                    ins.className = "adsbygoogle";
+                    ins.style = "display:block;"
+                    ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
+                    ins.setAttribute('data-ad-slot', '1112373098');
+                    ins.setAttribute('data-ad-format', 'auto');
+                    ins.setAttribute('data-full-width-responsive', 'true');
+
+
+                    var script2 = document.createElement("script");
+                    script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
+
+                    div.appendChild(script);
+                    div.appendChild(ins);
+                    div.appendChild(script2);
+                    document.getElementById("ad-spot").appendChild(div)
+
                 }
                 if (document.getElementById("ad-spot2") && document.getElementById("ad-spot2").children.length == 0 && window.innerWidth > 950) {
 
-                    chosenFormat = { id: "820709614", params: '("820709614", "160x600", "820709614")' }
-                    div = document.createElement("div")
-                    div.id = chosenFormat.id
-                    document.getElementById('ad-spot2').appendChild(div)
-
-                    script = document.createElement("script");
-                    script.text = `
-                                            try {
-                                                window._mNHandle.queue.push(function (){
-                                                    window._mNDetails.loadTag`+ chosenFormat.params + `;
-                                                });
-                                            }
-                                            catch (error) {}`
-
-                    div.appendChild(script)
                 }
             },
             BooleanAlgebraPageInit: function () {
@@ -240,38 +222,38 @@
                     var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
 
                     if (isFirstVisit && seenAd == "" && !isBot) {
-                        try {
-                            if (Math.random() <= 1) {
-                                var script = document.createElement("script");
-                                script.src = socialBarUrl;
-                                document.body.appendChild(script)
-                                var d = new Date();
-                                document.cookie = "seenAd=true; expires=Thu, 18 Dec " + (d.getFullYear() + 10) + " 12:00:00 UTC";
-                            } else if (atOptions) {
-                                var ad = document.getElementById("nord-ad");
-                                var script = document.createElement("script");
+                    try {
+                    if (Math.random() <= 1) {
+                    var script = document.createElement("script");
+                    script.src = socialBarUrl;
+                    document.body.appendChild(script)
+                    var d = new Date();
+                    document.cookie = "seenAd=true; expires=Thu, 18 Dec " + (d.getFullYear() + 10) + " 12:00:00 UTC";
+                    } else if (atOptions) {
+                    var ad = document.getElementById("nord-ad");
+                    var script = document.createElement("script");
 
-                                script.src = "https://www.displaynetworkcontent.com/" + atOptions.key + "/invoke.js";
-                                ad.appendChild(script)
-                                *//*ad.addEventListener("click", function () {
-window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
-})
-setTimeout(function () {
+                    script.src = "https://www.displaynetworkcontent.com/" + atOptions.key + "/invoke.js";
+                    ad.appendChild(script)
+                    *//*ad.addEventListener("click", function () {
+                    window.open("https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902");
+                    })
+                    setTimeout(function () {
 
-ad.className = ad.className + " slide"
+                    ad.className = ad.className + " slide"
 
-}, 3000)*//*
+                    }, 3000)*//*
 
-                                                                                                                                                                                                                                        setTimeout(function () {
+                    setTimeout(function () {
 
-                                                                                                                                                                                                                                            ad.className = ad.className + " wiggler"
+                    ad.className = ad.className + " wiggler"
 
-                                                                                                                                                                                                                                        }, 20000)
-                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                } catch (e) {
-                                                                                                                                                                                                                                    console.log(e);
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                            }*/
+                    }, 20000)
+                    }
+                    } catch (e) {
+                    console.log(e);
+                    }
+                    }*/
                     isFirstVisit = false;
                 }, 3000)
 
@@ -407,9 +389,9 @@ ad.className = ad.className + " slide"
 
         class KMap {
             /*<char[]:charSet>
-              The characters to be rendered in the corner.
-              The order of the array is the order it gets rendered.
-            </charSet>*/
+                The characters to be rendered in the corner.
+                The order of the array is the order it gets rendered.
+                </charSet>*/
             constructor(charSet) {
                 this.charSet = charSet;
                 this.slotsWidth = 0;
@@ -484,9 +466,11 @@ ad.className = ad.className + " slide"
             /*
             Redraws the canvas with the correct amount of slots
 
-            <int:slotsWidth></slotsWidth>
-            <int:slotsHeight></slotsHeight>
-            */
+            <int:slotsWidth>
+                </slotsWidth>
+                <int:slotsHeight>
+                    </slotsHeight>
+                    */
             draw(canvas) {
                 var context = canvas.getContext("2d");
 
@@ -564,8 +548,9 @@ ad.className = ad.className + " slide"
 
             /*
             Converts a tile structure into a path object
-            <Tile:tile>format:{x,y,w,h}. x,y starts at 1</Tile>
-            */
+            <Tile:tile>
+                format:{x,y,w,h}. x,y starts at 1</Tile>
+                */
             rectangleToPath(tile) {
                 let fillPath = new Path2D();
                 let strokePath = new Path2D();
@@ -617,8 +602,9 @@ ad.className = ad.className + " slide"
 
             /*
             Converts a tile structure into a path object
-            <Tile:tile>format:{x,y,w,h}. x,y starts at 1</Tile>
-            */
+            <Tile:tile>
+                format:{x,y,w,h}. x,y starts at 1</Tile>
+                */
             addRectangle(tile) {
                 this.paths.push(this.rectangleToPath(tile))
             }
