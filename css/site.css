@@ -283,18 +283,10 @@ hr {
 }
 
 @media (max-width: 1300px) {
-	.nord-ad-div {
-		background-size: contain;
-		background-image: url("/img/bottom.gif");
-		background-repeat: no-repeat;
-		height: 209.333333px;
-	}
+
 	.nord-ad-outter {
-		display: table;
-		margin: auto;
-		transform: translate(-1000px, 0px);
-		width:100%;
-		max-width: 400px;
+		display: none;
+
 	}
 
 }
@@ -312,8 +304,8 @@ hr {
 	.nord-ad-outter {
 		display: inline;
 		position: fixed;
-		top: 114px;
-		transform: translate(-1000px, 0px)
+		right: 10px;
+		top: 50px;
 	}
 }
 
