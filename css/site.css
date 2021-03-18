@@ -432,13 +432,13 @@ hr {
 
 #ad-spot2 {
 	position: fixed;
-	width:160px;
+
 	top: 0;
 	left: 0;
 }
 
 
-@media (max-width: 950px) {
+@media (max-width: 1150px) {
 	#ad-spot2 {
 		display: none;
 	}
