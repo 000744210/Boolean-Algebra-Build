@@ -231,9 +231,8 @@
                 answerMathField = MQ.MathField(answerSpan);
                 setTimeout(function () {
                     var q = getParameterByName("q");
-
                     if (q != null && isFirstVisit) {
-
+                        q = window.atob(q);
                         answerMathField.latex(q.replace(/{/g, "\\overline{"))
                         document.getElementById("submit-btn").click();
                     }
@@ -276,7 +275,7 @@
                     }
                     }*/
                     isFirstVisit = false;
-                }, 3000)
+                }, 1000)
 
             },
             BooleanAlgebraSolveClick: function () {
@@ -411,9 +410,8 @@
             Share: function () {
                 var sharedQuestion = answerMathField.latex();
 
-                sharedQuestion = sharedQuestion.replace(/\\overline/g, "");
-
-                copyToClipboard("https://www.boolean-algebra.com?q=" + sharedQuestion)
+                sharedQuestion = sharedQuestion.replace(/\\overline/g, "").replace(/\\left/g, "").replace(/\\right/g, "");
+                copyToClipboard("https://www.boolean-algebra.com?q=" + window.btoa(sharedQuestion))
 
                 alert("The url has been copied to your clipboard.");
             }
