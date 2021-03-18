@@ -223,7 +223,10 @@
                     div.appendChild(script2);
                     document.getElementById("ad-spot2").appendChild(div)
                 }
-             
+
+                if (typeof (window.google_jobrunner) === "undefined" && document.getElementById("nord-ad-spot").children.length == 0 ) {
+                    document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a class="nord-ad" href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902" target="_blank"><div class="nord-ad-div"></div><img src="https://go.nordvpn.net/aff_i?file_id=350&aff_id=52104&offer_id=15"></a></div>`;
+                }
 
             },
             BooleanAlgebraPageInit: function () {
