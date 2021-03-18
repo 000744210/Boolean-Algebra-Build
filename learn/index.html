@@ -224,29 +224,6 @@
                     document.getElementById("ad-spot2").appendChild(div)
                 }
 
-                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0) {
-                    var div = document.createElement("div")
-                    var script = document.createElement("script");
-                    script.async = true;
-                    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-
-                    var ins = document.createElement("ins");
-                    ins.className = "adsbygoogle";
-                    ins.style = "display:block;"
-                    ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
-                    ins.setAttribute('data-ad-slot', '9529138918');
-                    ins.setAttribute('data-ad-format', 'auto');
-                    ins.setAttribute('data-full-width-responsive', 'true');
-
-
-                    var script2 = document.createElement("script");
-                    script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
-
-                    div.appendChild(script);
-                    div.appendChild(ins);
-                    div.appendChild(script2);
-                    document.getElementById("ad-spot3").appendChild(div)
-                }
             },
             BooleanAlgebraPageInit: function () {
 
@@ -318,7 +295,6 @@
             },
 
             RenderLatexList: function (latexList) {
-
                 console.log(latexList[4].length)
                 console.log(latexList);
                 //$(".divider").css("border-top","0px solid white")
@@ -381,6 +357,30 @@
                     $("#errorLocation").text("WARNING: Solution is not complete. Unable to apply redundancy theorem.");
                 } else {
                     $("#errorLocation").text("");
+                }
+
+                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0) {
+                    var div = document.createElement("div")
+                    var script = document.createElement("script");
+                    script.async = true;
+                    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+
+                    var ins = document.createElement("ins");
+                    ins.className = "adsbygoogle";
+                    ins.style = "display:block;"
+                    ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
+                    ins.setAttribute('data-ad-slot', '9529138918');
+                    ins.setAttribute('data-ad-format', 'auto');
+                    ins.setAttribute('data-full-width-responsive', 'true');
+
+
+                    var script2 = document.createElement("script");
+                    script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
+
+                    div.appendChild(script);
+                    div.appendChild(ins);
+                    div.appendChild(script2);
+                    document.getElementById("ad-spot3").appendChild(div)
                 }
             },
             RenderLatex: function () {
