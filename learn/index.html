@@ -175,60 +175,61 @@
             },
             OnPageLoadGlobal: function () {
 
+                if (typeof (window.google_jobrunner) !== "undefined") {
+                    console.log("RUNNING GOOGLE ADS")
+                    if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
+                        var div = document.createElement("div")
+                        var script = document.createElement("script");
+                        script.async = true;
+                        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
 
-                if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
-                    var div = document.createElement("div")
-                    var script = document.createElement("script");
-                    script.async = true;
-                    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-
-                    var ins = document.createElement("ins");
-                    ins.className = "adsbygoogle";
-                    ins.style = "display:block;"
-                    ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
-                    ins.setAttribute('data-ad-slot', '1112373098');
-                    ins.setAttribute('data-ad-format', 'auto');
-                    ins.setAttribute('data-full-width-responsive', 'true');
+                        var ins = document.createElement("ins");
+                        ins.className = "adsbygoogle";
+                        ins.style = "display:block;"
+                        ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
+                        ins.setAttribute('data-ad-slot', '1112373098');
+                        ins.setAttribute('data-ad-format', 'auto');
+                        ins.setAttribute('data-full-width-responsive', 'true');
 
 
-                    var script2 = document.createElement("script");
-                    script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
+                        var script2 = document.createElement("script");
+                        script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
 
-                    div.appendChild(script);
-                    div.appendChild(ins);
-                    div.appendChild(script2);
-                    document.getElementById("ad-spot").appendChild(div)
+                        div.appendChild(script);
+                        div.appendChild(ins);
+                        div.appendChild(script2);
+                        document.getElementById("ad-spot").appendChild(div)
 
+                    }
+                    if (document.getElementById("ad-spot2") && document.getElementById("ad-spot2").children.length == 0 && window.innerWidth > 1180) {
+                        var div = document.createElement("div")
+                        var script = document.createElement("script");
+                        script.async = true;
+                        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+
+                        var ins = document.createElement("ins");
+                        ins.className = "adsbygoogle";
+                        ins.style = "display:block;"
+                        ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
+                        ins.setAttribute('data-ad-slot', '9931860954');
+                        ins.setAttribute('data-ad-format', 'auto');
+                        ins.setAttribute('data-full-width-responsive', 'true');
+
+
+                        var script2 = document.createElement("script");
+                        script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
+
+                        div.appendChild(script);
+                        div.appendChild(ins);
+                        div.appendChild(script2);
+                        document.getElementById("ad-spot2").appendChild(div)
+                    }
                 }
-                if (document.getElementById("ad-spot2") && document.getElementById("ad-spot2").children.length == 0 && window.innerWidth > 1180) {
-                    var div = document.createElement("div")
-                    var script = document.createElement("script");
-                    script.async = true;
-                    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-
-                    var ins = document.createElement("ins");
-                    ins.className = "adsbygoogle";
-                    ins.style = "display:block;"
-                    ins.setAttribute('data-ad-client', 'ca-pub-3710933901766821');
-                    ins.setAttribute('data-ad-slot', '9931860954');
-                    ins.setAttribute('data-ad-format', 'auto');
-                    ins.setAttribute('data-full-width-responsive', 'true');
-
-
-                    var script2 = document.createElement("script");
-                    script2.text = `(adsbygoogle = window.adsbygoogle || []).push({});`;
-
-                    div.appendChild(script);
-                    div.appendChild(ins);
-                    div.appendChild(script2);
-                    document.getElementById("ad-spot2").appendChild(div)
-                }
-
                 setTimeout(function () {
                     if (typeof (window.google_jobrunner) === "undefined" && document.getElementById("nord-ad-spot").children.length == 0) {
                         //document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a class="nord-ad" href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902" target="_blank"><div class="nord-ad-div"></div><img src="https://go.nordvpn.net/aff_i?file_id=350&aff_id=52104&offer_id=15"></a></div>`;
                         //document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a href="/redir.html" target="_top"><img src="/img/vpn.jpg" alt="" title="" width="300" height="250" /></a></div>`
-                        document.getElementById("ad-spot-afil").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a href="/redir.html" target="_top"><img src="/img/vpnfoot.jpg" alt="" title="" width="300" height="250" /></a></div>`
+                        document.getElementById("ad-spot-afil").innerHTML = `<div id="nord-ad" class="affiliate1"><a href="/redir.html" target="_blank"><img src="/img/vpnfoot.jpg" alt="" title="" style="max-width:100%" /></a></div>`
                     }
                 }, 500)
 
@@ -370,7 +371,7 @@
                     $("#errorLocation").text("");
                 }
 
-                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0) {
+                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 && typeof (window.google_jobrunner) !== "undefined") {
                     var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
