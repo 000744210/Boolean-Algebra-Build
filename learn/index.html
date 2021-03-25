@@ -174,8 +174,8 @@
 
             },
             OnPageLoadGlobal: function () {
-
-                if (typeof (window.google_jobrunner) !== "undefined") {
+                var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
+                if (typeof (window.google_jobrunner) !== "undefined" && !isBot) {
                     console.log("RUNNING GOOGLE ADS")
                     if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
                         var div = document.createElement("div")
