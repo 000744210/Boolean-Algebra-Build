@@ -175,8 +175,8 @@
             },
             OnPageLoadGlobal: function () {
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
-                if (typeof (window.google_jobrunner) !== "undefined" && !isBot) {
-                    console.log("RUNNING GOOGLE ADS")
+                if (/*typeof (window.google_jobrunner) !== "undefined" &&*/ !isBot) {
+                    //console.log("RUNNING GOOGLE ADS")
                     if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
                         var div = document.createElement("div")
                         var script = document.createElement("script");
@@ -371,8 +371,8 @@
                     $("#errorLocation").text("");
                 }
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
-                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 && typeof (window.google_jobrunner) !== "undefined" && !isBot) {
-                    /*var div = document.createElement("div")
+                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
+                    var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
                     script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
@@ -392,7 +392,7 @@
                     div.appendChild(script);
                     div.appendChild(ins);
                     div.appendChild(script2);
-                    document.getElementById("ad-spot3").appendChild(div)*/
+                    document.getElementById("ad-spot3").appendChild(div)
                 }
             },
             RenderLatex: function () {
