@@ -177,7 +177,7 @@
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
                 if (/*typeof (window.google_jobrunner) !== "undefined" &&*/ !isBot) {
                     //console.log("RUNNING GOOGLE ADS")
-                    if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
+                    if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0 && false) {
                         var div = document.createElement("div")
                         var script = document.createElement("script");
                         script.async = true;
@@ -371,7 +371,7 @@
                     $("#errorLocation").text("");
                 }
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
-                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
+                if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 && false /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
                     var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
