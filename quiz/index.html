@@ -226,7 +226,7 @@
                     }
                 }
                 setTimeout(function () {
-                    if (typeof (window.google_jobrunner) === "undefined" && document.getElementById("nord-ad-spot").children.length == 0) {
+                    if (true || (typeof (window.google_jobrunner) === "undefined" && document.getElementById("nord-ad-spot").children.length == 0)) {
                         //document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a class="nord-ad" href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902" target="_blank"><div class="nord-ad-div"></div><img src="https://go.nordvpn.net/aff_i?file_id=350&aff_id=52104&offer_id=15"></a></div>`;
                         //document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a href="/redir.html" target="_top"><img src="/img/vpn.jpg" alt="" title="" width="300" height="250" /></a></div>`
                         document.getElementById("ad-spot-afil").innerHTML = `<div id="nord-ad" class="affiliate1"><a href="/redir.html" target="_blank"><img src="/img/vpnfoot.jpg" alt="" title="" style="max-width:100%" /></a></div>`
