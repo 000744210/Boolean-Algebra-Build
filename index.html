@@ -32,6 +32,12 @@
     <app>
         <canvas id="loaderCanvas" style="width:200px;height:200px;margin-left:auto;margin-right:auto;display:block"></canvas>
         <h2 style="text-align:center;margin-left:auto;margin-right:auto;display:block">Loading...</h2>
+        <div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:100px">
+            <h3 class="center">This may take awhile...</h3>
+            <p>The website is currently getting the required resources.</p>
+            <p>If it takes longer than 30 seconds then please refresh unless you have slow internet.</p>
+
+        </div>
         <script>
             function initCanvasDraw() {
                 /** https://www.dwitter.net/d/1385 **/
@@ -62,6 +68,11 @@
             initCanvasDraw();
         </script>
     </app>
+    <div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:100px">
+        <h3 class="center">Help</h3>
+        <p>Try out my other site. <a href="https://www.compareminds.com">https://www.compareminds.com</a></p>
+        <p>I need help collecting statistics about the games on the site.</p>
+    </div>
     <script type="text/javascript">
 
         atOptionsBottomList = [
@@ -229,7 +240,7 @@
                     if (true || (typeof (window.google_jobrunner) === "undefined" && document.getElementById("nord-ad-spot").children.length == 0)) {
                         //document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a class="nord-ad" href="https://go.nordvpn.net/aff_c?offer_id=15&aff_id=52104&url_id=902" target="_blank"><div class="nord-ad-div"></div><img src="https://go.nordvpn.net/aff_i?file_id=350&aff_id=52104&offer_id=15"></a></div>`;
                         //document.getElementById("nord-ad-spot").innerHTML = `<div id="nord-ad" class="nord-ad-outter"><a href="/redir.html" target="_top"><img src="/img/vpn.jpg" alt="" title="" width="300" height="250" /></a></div>`
-                        document.getElementById("ad-spot-afil").innerHTML = `<div id="nord-ad" class="affiliate1"><a href="/redir.html" target="_blank"><img src="/img/vpnfoot.jpg" alt="" title="" style="max-width:100%" /></a></div>`
+                        /*REAL AD*///document.getElementById("ad-spot-afil").innerHTML = `<div id="nord-ad" class="affiliate1"><a href="/redir.html" target="_blank"><img src="/img/vpnfoot.jpg" alt="" title="" style="max-width:100%" /></a></div>`
                     }
                 }, 500)
 
