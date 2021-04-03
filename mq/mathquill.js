@@ -4932,7 +4932,9 @@ var Embed = LatexCmds.embed = P(Symbol, function(_, super_) {
 	var executeCommand = CharCmds["\\"];
 	CharCmds = {};
 	CharCmds["\\"] = executeCommand;
-	CharCmds['!'] = LatexCmds.sim = bind(OverLineOperator, '\\overline', '\\overline', '\\overline');
+    CharCmds['!'] = LatexCmds.sim = bind(OverLineOperator, '\\overline', '\\overline', '\\overline');
+    CharCmds['\''] = LatexCmds.sim = bind(OverLineOperator, '\\overline', '\\overline', '\\overline');
+    CharCmds['`'] = LatexCmds.sim = bind(OverLineOperator, '\\overline', '\\overline', '\\overline');
 	bindCharBracketPair('(');	
 	var MQ1 = getInterface(1);
 for (var key in MQ1) (function(key, val) {
