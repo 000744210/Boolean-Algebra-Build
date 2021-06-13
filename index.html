@@ -128,7 +128,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="/mq/mathquill.js"></script>
     <script>
+        function inputBuilder(state) {
 
+            var charSet = ['A', 'B', 'C', 'D']
+
+            var split = state.split('-')
+            var charSetSize = parseInt(split[0])
+            $("#CharSetSize").val(charSetSize)
+            charSet = charSet.slice(0, charSetSize)
+            var grayCodes = split[1].split('_')
+            var input = new KMapInput(charSet)
+            grayCodes.forEach((code) => {
+                input.loadGrayCode(code)
+            })
+            return input;
+        };
 
         var MQ = MathQuill.getInterface(2);
         function connectHoverEvents(classes) {
@@ -186,21 +200,94 @@
         var isFirstVisit = true;
         var answerMathField = null;
         var inputbox = null;
+        var outputbox = null;
         window.JsFunc = {
             KMapPageInit: function () {
-                inputbox = new KMapInput(['A', 'B', 'C', 'D'])
+                if (inputbox) inputbox.remove();
+                var charSet = ['A', 'B', 'C', 'D'];
+
+                if (getParameterByName('q')) {
+                    inputbox = inputBuilder(getParameterByName('q'))
+                    charSet = inputbox.charSet;
+                } else {
+
+                    inputbox = new KMapInput(charSet)
+                }
                 var inputcanvas = document.getElementById("kmapInput")
                 inputbox.initAnimation(inputcanvas)
+                inputbox.onInput = function (tiles) {
+                    
+                    DotNet.invokeMethodAsync("Boolean-Algebra", "SolveKmap", {
+                        width: inputbox.slotsWidth,
+                        height: inputbox.slotsHeight,
+                        tiles: tiles,
+                        charSet: charSet
+                    }).then(function (result) {
+                        if (outputbox) {
+                            outputbox.remove();
+                            outputbox = new KMap(charSet)
+                        }
+                        if (outputbox == null) outputbox = new KMap(charSet);
+
+                        result.kmapSolution.forEach((rect) => {
+                            outputbox.addRectangle(rect)
+                        })
+                        outputbox.initAnimation(document.getElementById("kmapOutput"))
+                        $("#stepContainer").css("display", "block")
+                        $("#truthtableContainer").css("display", "block")
+                        document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
+                        document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
+                        JsFunc.RenderLatex();
+
+
+                    })
+ 
+                }
+                if (getParameterByName('q')) {
+                    inputbox.forceInput();
+                }
+
             },
             CharSetSizeChange: function () {
                 var newSize = Math.min(Math.max(document.getElementById("CharSetSize").value,1),4);
                 var charSet = ['A','B','C','D']
-                var displayedSet = charSet.slice(0, newSize)
+                var charSet = charSet.slice(0, newSize)
+                document.getElementById("kmapAlgebraAnswer").innerHTML = "";
+                document.getElementById("truthtableLocation").innerHTML = "";
+                $("#stepContainer").css("display", "none")
+                $("#truthtableContainer").css("display", "none")
                 inputbox.remove();
                 var inputcanvas = document.getElementById("kmapInput")
-                inputbox = new KMapInput(displayedSet);
+                inputbox = new KMapInput(charSet);
                 inputbox.initAnimation(inputcanvas)
+                if(outputbox) outputbox.remove();
+                outputbox = null;
+                inputbox.onInput = (tiles) => {
+                    DotNet.invokeMethodAsync("Boolean-Algebra", "SolveKmap", {
+                        width: inputbox.slotsWidth,
+                        height: inputbox.slotsHeight,
+                        tiles: tiles,
+                        charSet: charSet
+                    }).then(function (result) {
+                        if (outputbox) {
+                            outputbox.remove();
+                            outputbox = new KMap(charSet)
+                        }
+                        if (outputbox == null) outputbox = new KMap(charSet);
 
+                        result.kmapSolution.forEach((rect) => {
+                            outputbox.addRectangle(rect)
+                        })
+                        outputbox.initAnimation(document.getElementById("kmapOutput"))
+                        $("#stepContainer").css("display", "block")
+                        $("#truthtableContainer").css("display", "block")
+                        document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
+                        document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
+                        JsFunc.RenderLatex();
+
+
+                    })
+                }
             },
             OnPageFirstLoadGlobal: function () {
 
@@ -375,7 +462,6 @@
                         var kmap = new KMap(latexList[4]);
 
                         for (var i = 0; i < latexList[3].length; i++) {
-
                             kmap.addRectangle(latexList[3][i]);
                         }
 
@@ -459,8 +545,20 @@
                 copyToClipboard("https://www.boolean-algebra.com?q=" + window.btoa(sharedQuestion))
 
                 alert("The url has been copied to your clipboard.");
+            },
+            ShareKmapUrl: function () {
+                if (inputbox.paths.length == 0) {
+                    copyToClipboard("https://www.boolean-algebra.com/kmap")
+                    alert("The url has been copied to your clipboard.");
+                } else {
+                    
+                    copyToClipboard("https://www.boolean-algebra.com/kmap?q=" + inputbox.saveState())
+                    alert("The url has been copied to your clipboard.");
+                }
             }
         }
+
+
 
         const copyToClipboard = str => {
             const el = document.createElement('textarea');
@@ -489,7 +587,7 @@
                 this.verticalChars = [];
                 this.horizonalChars = [];
 
-                var setList = this.charSet
+                var setList = [...this.charSet]
                 this.horizonalChars = setList.splice(Math.ceil(setList.length / 2.0));
                 this.verticalChars = setList;
 
@@ -499,13 +597,43 @@
                 this.eventRef = {clickEvent:null, moveEvent: null, element: null };
             }
 
+            loadGrayCode(grayCode) {
+                var sides = grayCode.split('+');
+                var x = this.decode(parseInt(sides[0],2))
+                var y = this.decode(parseInt(sides[1],2))
+                this.addRectangle({ x: x, y: y, w: 1, h: 1 })
+                console.log(this)
+            }
+
+            saveState() {
+                var state = `${this.charSet.length}-`
+                var codes = []
+                this.paths.forEach((path) => {
+                    var leftSide = this.encode(path.rawTile.x).toString(2)
+                    var rightSide = this.encode(path.rawTile.y).toString(2)
+
+                    var code = leftSide + '+' + rightSide;
+                    codes.push(code);
+
+                })
+                state += codes.join('_');
+                return state;
+            }
+
+            forceInput() {
+                if (this.onInput) this.onInput(this.paths.map(path => { return { 'x': path.rawTile.x, 'y': path.rawTile.y } }));
+            }
+
             remove() {
                 if (this.eventRef.moveEvent) {
                     this.eventRef.element.removeEventListener("mousemove", this.eventRef.moveEvent)
-                    this.eventRef.element.removeEventListener("click", this.eventRef.clickEvent)
-                    this.eventRef.element.getContext("2d").clearRect(0, 0, this.eventRef.element.width, this.eventRef.element.height);
                 }
 
+                if (this.eventRef.clickEvent) {
+                    this.eventRef.element.removeEventListener("click", this.eventRef.clickEvent)
+                }
+                this.onInput = null;
+                this.eventRef.element.getContext("2d").clearRect(0, 0, this.eventRef.element.width, this.eventRef.element.height);
             }
 
             initAnimation(canvas) {
@@ -515,6 +643,9 @@
 
                 if (this.eventRef.moveEvent) {
                     this.eventRef.element.removeEventListener("mousemove", this.eventRef.moveEvent)
+                    
+                }
+                if (this.eventRef.clickEvent) {
                     this.eventRef.element.removeEventListener("click", this.eventRef.clickEvent)
                 }
 
@@ -540,6 +671,7 @@
                     } else {
                         this.addRectangle({ x: xPos, y: yPos, w: 1, h: 1 })
                     }
+                    if (this.onInput) this.onInput(this.paths.map(path => { return { 'x': path.rawTile.x, 'y': path.rawTile.y } }));
                     this.draw(canvas);
                 }
 
@@ -712,6 +844,7 @@
                 format:{x,y,w,h}. x,y starts at 1</Tile>
                 */
             addRectangle(tile) {
+                
                 var path = this.rectangleToPath(tile);
                 path.rawTile = tile;
                 this.paths.push(path)
@@ -872,7 +1005,7 @@
                 this.verticalChars = [];
                 this.horizonalChars = [];
 
-                var setList = this.charSet
+                var setList = [...this.charSet]
                 this.horizonalChars = setList.splice(Math.ceil(setList.length / 2.0));
                 this.verticalChars = setList;
 
@@ -885,9 +1018,10 @@
             remove() {
                 if (this.eventRef.event) {
                     this.eventRef.element.removeEventListener("mousemove", this.eventRef.event)
-                    this.eventRef.element.getContext("2d").clearRect(0, 0, this.eventRef.element.width, this.eventRef.element.height);
+                    
                 }
-
+                this.eventRef.element.getContext("2d").clearRect(0, 0, this.eventRef.element.width, this.eventRef.element.height);
+                this.paths = [];
             }
 
             initAnimation(canvas) {
