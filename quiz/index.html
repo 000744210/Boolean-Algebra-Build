@@ -233,8 +233,8 @@
                             outputbox.addRectangle(rect)
                         })
                         outputbox.initAnimation(document.getElementById("kmapOutput"))
-                        $("#stepContainer").css("display", "block")
-                        $("#truthtableContainer").css("display", "block")
+                        $("#kmapFullContainer").css("display", "block")
+                        //$("#truthtableContainer").css("display", "block")
                         document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
                         document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
                         JsFunc.RenderLatex();
@@ -254,8 +254,8 @@
                 var charSet = charSet.slice(0, newSize)
                 document.getElementById("kmapAlgebraAnswer").innerHTML = "";
                 document.getElementById("truthtableLocation").innerHTML = "";
-                $("#stepContainer").css("display", "none")
-                $("#truthtableContainer").css("display", "none")
+                $("#kmapFullContainer").css("display", "none")
+                //$("#truthtableContainer").css("display", "none")
                 inputbox.remove();
                 var inputcanvas = document.getElementById("kmapInput")
                 inputbox = new KMapInput(charSet);
@@ -279,8 +279,8 @@
                             outputbox.addRectangle(rect)
                         })
                         outputbox.initAnimation(document.getElementById("kmapOutput"))
-                        $("#stepContainer").css("display", "block")
-                        $("#truthtableContainer").css("display", "block")
+                        $("#kmapFullContainer").css("display", "block")
+                        //$("#truthtableContainer").css("display", "block")
                         document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
                         document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
                         JsFunc.RenderLatex();

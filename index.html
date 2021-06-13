@@ -216,7 +216,7 @@
                 var inputcanvas = document.getElementById("kmapInput")
                 inputbox.initAnimation(inputcanvas)
                 inputbox.onInput = function (tiles) {
-                    
+
                     DotNet.invokeMethodAsync("Boolean-Algebra", "SolveKmap", {
                         width: inputbox.slotsWidth,
                         height: inputbox.slotsHeight,
@@ -233,15 +233,15 @@
                             outputbox.addRectangle(rect)
                         })
                         outputbox.initAnimation(document.getElementById("kmapOutput"))
-                        $("#stepContainer").css("display", "block")
-                        $("#truthtableContainer").css("display", "block")
+                        $("#kmapFullContainer").css("display", "block")
+                        //$("#truthtableContainer").css("display", "block")
                         document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
                         document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
                         JsFunc.RenderLatex();
 
 
                     })
- 
+
                 }
                 if (getParameterByName('q')) {
                     inputbox.forceInput();
@@ -249,18 +249,18 @@
 
             },
             CharSetSizeChange: function () {
-                var newSize = Math.min(Math.max(document.getElementById("CharSetSize").value,1),4);
-                var charSet = ['A','B','C','D']
+                var newSize = Math.min(Math.max(document.getElementById("CharSetSize").value, 1), 4);
+                var charSet = ['A', 'B', 'C', 'D']
                 var charSet = charSet.slice(0, newSize)
                 document.getElementById("kmapAlgebraAnswer").innerHTML = "";
                 document.getElementById("truthtableLocation").innerHTML = "";
-                $("#stepContainer").css("display", "none")
-                $("#truthtableContainer").css("display", "none")
+                $("#kmapFullContainer").css("display", "none")
+                //$("#truthtableContainer").css("display", "none")
                 inputbox.remove();
                 var inputcanvas = document.getElementById("kmapInput")
                 inputbox = new KMapInput(charSet);
                 inputbox.initAnimation(inputcanvas)
-                if(outputbox) outputbox.remove();
+                if (outputbox) outputbox.remove();
                 outputbox = null;
                 inputbox.onInput = (tiles) => {
                     DotNet.invokeMethodAsync("Boolean-Algebra", "SolveKmap", {
@@ -279,8 +279,8 @@
                             outputbox.addRectangle(rect)
                         })
                         outputbox.initAnimation(document.getElementById("kmapOutput"))
-                        $("#stepContainer").css("display", "block")
-                        $("#truthtableContainer").css("display", "block")
+                        $("#kmapFullContainer").css("display", "block")
+                        //$("#truthtableContainer").css("display", "block")
                         document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
                         document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
                         JsFunc.RenderLatex();
@@ -551,7 +551,7 @@
                     copyToClipboard("https://www.boolean-algebra.com/kmap")
                     alert("The url has been copied to your clipboard.");
                 } else {
-                    
+
                     copyToClipboard("https://www.boolean-algebra.com/kmap?q=" + inputbox.saveState())
                     alert("The url has been copied to your clipboard.");
                 }
@@ -594,13 +594,13 @@
                 this.slotsWidth = Math.pow(2, this.horizonalChars.length);
                 this.slotsHeight = Math.pow(2, this.verticalChars.length);
 
-                this.eventRef = {clickEvent:null, moveEvent: null, element: null };
+                this.eventRef = { clickEvent: null, moveEvent: null, element: null };
             }
 
             loadGrayCode(grayCode) {
                 var sides = grayCode.split('+');
-                var x = this.decode(parseInt(sides[0],2))
-                var y = this.decode(parseInt(sides[1],2))
+                var x = this.decode(parseInt(sides[0], 2))
+                var y = this.decode(parseInt(sides[1], 2))
                 this.addRectangle({ x: x, y: y, w: 1, h: 1 })
                 console.log(this)
             }
@@ -643,7 +643,7 @@
 
                 if (this.eventRef.moveEvent) {
                     this.eventRef.element.removeEventListener("mousemove", this.eventRef.moveEvent)
-                    
+
                 }
                 if (this.eventRef.clickEvent) {
                     this.eventRef.element.removeEventListener("click", this.eventRef.clickEvent)
@@ -652,11 +652,11 @@
                 this.eventRef.element = canvas;
 
                 this.eventRef.clickEvent = event => {
-                    
+
                     var pos = this.getMousePos(canvas, event);
-                    var xPos = Math.floor((pos.x - 30) / 40)+1
+                    var xPos = Math.floor((pos.x - 30) / 40) + 1
                     var yPos = Math.floor((pos.y - 30) / 40) + 1
-                    if (xPos > this.slotsWidth || yPos > this.slotsHeight || xPos <= 0 || yPos <= 0 ) return;
+                    if (xPos > this.slotsWidth || yPos > this.slotsHeight || xPos <= 0 || yPos <= 0) return;
                     if (this.paths.some(path => {
                         return path.rawTile.x == xPos && path.rawTile.y == yPos
                     })) {
@@ -844,7 +844,7 @@
                 format:{x,y,w,h}. x,y starts at 1</Tile>
                 */
             addRectangle(tile) {
-                
+
                 var path = this.rectangleToPath(tile);
                 path.rawTile = tile;
                 this.paths.push(path)
@@ -1018,7 +1018,7 @@
             remove() {
                 if (this.eventRef.event) {
                     this.eventRef.element.removeEventListener("mousemove", this.eventRef.event)
-                    
+
                 }
                 this.eventRef.element.getContext("2d").clearRect(0, 0, this.eventRef.element.width, this.eventRef.element.height);
                 this.paths = [];
