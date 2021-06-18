@@ -346,6 +346,7 @@
                     centerNodes(node.leftInput)
                     centerNodes(node.rightInput)
                 } else if (node.input) {
+                    node.y = node.input.y;
                     centerNodes(node.input)
                 }
 
@@ -395,11 +396,7 @@
                         drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
                     }
                 } else if (inputNode.circutType == 'OR' && outputNode.circutType == "NOT") {
-                    if (inputName == "leftInput") {
-                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
-                    } else if (inputName == "rightInput") {
-                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
-                    }
+                    drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 25, ctx)
                 } else if (inputNode.circutType == 'OR' && outputNode.circutType == "OR") {
                     if (inputName == "leftInput") {
                         drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
