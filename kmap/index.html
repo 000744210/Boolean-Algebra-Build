@@ -310,6 +310,8 @@
                     } else if (inputName == "rightInput") {
                         drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
                     }
+                } else if (inputNode.circutType == 'OR' && outputNode.circutType == "NOT") {
+                    drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 25, ctx)
                 }
 
             }
