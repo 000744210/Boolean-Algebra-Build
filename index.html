@@ -99,7 +99,7 @@
                 var canvas = document.createElement("canvas")
                 canvas.width = 4000
                 canvas.height = 12000
-                
+
                 var ctx = canvas.getContext("2d");
 
                 /*ctx.save()
@@ -113,7 +113,7 @@
                 ctx.fillRect(0, 0, canvas.width,canvas.height);
 
                 ctx.restore();*/
-                ctx.translate(canvas.width-100, canvas.height / 2);
+                ctx.translate(canvas.width - 100, canvas.height / 2);
                 ctx.font = '30px Arial';
                 node = mapNodes(node)
                 drawTree(node.input, 0, 0, ctx);
@@ -125,18 +125,18 @@
 
             }
 
-            function cropCanvas(canvas,x,y,width,height){
+            function cropCanvas(canvas, x, y, width, height) {
                 // create a temp canvas
                 const newCanvas = document.createElement('canvas');
                 // set its dimensions
                 newCanvas.width = width;
                 newCanvas.height = height;
-                // draw the canvas in the new resized temp canvas 
+                // draw the canvas in the new resized temp canvas
                 newCanvas.getContext('2d').drawImage(canvas, x, y, width, height, 0, 0, width, height);
                 return newCanvas
             };
 
-            function contextBoundingBox(node,boundry) {
+            function contextBoundingBox(node, boundry) {
                 if (boundry === undefined) {
                     boundry = { minX: node.x, minY: node.y, maxX: node.x, maxY: node.y };
                 }
@@ -156,7 +156,7 @@
                 if (node.y < boundry.minY) {
                     boundry.minY = node.y
                 }
-                
+
                 if (node.leftInput && node.rightInput) {
                     contextBoundingBox(node.leftInput, boundry)
                     contextBoundingBox(node.rightInput, boundry)
@@ -169,7 +169,7 @@
                 boundry.h = boundry.maxY - boundry.minY
                 return boundry
             }
-            
+
             function drawTree(node, depth, y, ctx) {
 
                 if (node.leftInput && node.rightInput) {
@@ -207,11 +207,11 @@
                         drawTree(node.rightInput, depth + 1, y + (2 * rightLeftSize), ctx);
                     else
                         drawTree(node.rightInput, depth + 1, y + (rightSize), ctx)
-                    drawBetweenNodes(node.leftInput, node, "leftInput",ctx)
+                    drawBetweenNodes(node.leftInput, node, "leftInput", ctx)
                     drawBetweenNodes(node.rightInput, node, "rightInput", ctx)
 
                 } else if (node.input) {
- 
+
                     ctx.save();
                     if (node.circutType == 'NOT') {
                         node.x = -(depth * depthSize)
@@ -253,7 +253,7 @@
             function drawBetweenNodes(inputNode, outputNode, inputName, ctx) {
 
                 if (inputNode.circutType == 'INPUT' && outputNode.circutType == "NOT") {
-                    drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 25,ctx)
+                    drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 25, ctx)
                 } else if (inputNode.circutType == 'INPUT' && outputNode.circutType == "AND") {
                     if (inputName == "leftInput") {
                         drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 18, ctx)
@@ -521,7 +521,7 @@
                         document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
                         document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
                         JsFunc.RenderLatex();
-                        
+
 
                     })
 
@@ -780,7 +780,7 @@
                 }
 
                 var originalCircut = getLogicGateDiagram(latexList[6])
-                originalCircut.style["max-width"]="600px"
+                originalCircut.style["max-width"] = "600px"
                 var minimalCircut = getLogicGateDiagram(latexList[7])
                 minimalCircut.style["max-width"] = "600px"
                 $("#minimalView").empty();
