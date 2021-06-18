@@ -108,6 +108,16 @@ hr {
 	/*width: 600px;*/
 }
 
+#logicgateContainer {
+	display: none;
+	margin-top: 40px;
+	padding: 5px;
+	padding-top: 7px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 5px;
+	max-width: 600px;
+}
+
 .mobile-button {
 	background-color: #fafafa;
 	-moz-border-radius: 6px;

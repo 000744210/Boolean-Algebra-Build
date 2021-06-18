@@ -18,12 +18,7 @@
         gtag('config', 'UA-150354135-1');
     </script>
     <script data-ad-client="ca-pub-3710933901766821" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script type="text/javascript">
-        window._mNHandle = window._mNHandle || {};
-        window._mNHandle.queue = window._mNHandle.queue || [];
-        medianet_versionId = "3121199";
-    </script>
-    <script src="https://contextual.media.net/dmedianet.js?cid=8CUPIA1C1" async="async"></script>
+
 </head>
 <body>
     <div id="ad-manipulator" style=" transform: translateX(-100000px); height: 0;">
@@ -39,6 +34,287 @@
 
         </div>
         <script>
+
+            function mapNodes(nodeArray) {
+                var output = null;
+                var refs = new Map();
+
+                nodeArray.forEach(function (obj) {
+                    refs.set(obj.guid, obj)
+                })
+
+                nodeArray.forEach(function (obj) {
+                    if (obj.input) {
+                        obj.input = refs.get(obj.input.guid)
+                    }
+                    if (obj.leftInput) {
+                        obj.leftInput = refs.get(obj.leftInput.guid)
+                    }
+                    if (obj.rightInput) {
+                        obj.rightInput = refs.get(obj.rightInput.guid)
+                    }
+                    if (obj.output) {
+                        obj.output = refs.get(obj.output.guid)
+                    }
+                    if (obj.circutType == 'OUTPUT') {
+                        output = obj
+                    }
+                })
+                return output;
+            }
+
+            function getSizeOfNodes(node) {
+                return getSizeOfNodesHelper(node, 0);
+            }
+
+            function getSizeOfNodesHelper(node, score) {
+                if (node.leftInput) {
+                    score += getSizeOfNodesHelper(node.leftInput, 0)
+                }
+                if (node.rightInput) {
+                    score += getSizeOfNodesHelper(node.rightInput, 0)
+                }
+                if (node.input) {
+                    score += getSizeOfNodesHelper(node.input, 0)
+                }
+                if (node.circutType == "INPUT") {
+                    score += 1
+                }
+
+                return score;
+            }
+
+            var depthSize = 80;
+            var ySize = 25;
+            var orPath = new Path2D('M24.09375 5l2 2.4375S31.75 14.437549 31.75 25s-5.65625 17.5625-5.65625 17.5625l-2 2.4375H41.25c2.408076.000001 7.689699.024514 13.625-2.40625s12.536536-7.343266 17.6875-16.875L71.25 25l1.3125-.71875C62.259387 5.21559 46.006574 5 41.25 5H24.09375zm5.875 3H41.25c4.684173 0 18.28685-.130207 27.96875 17C64.451964 33.429075 58.697469 37.68391 53.5 39.8125 48.139339 42.007924 43.658075 42.000001 41.25 42H30c1.873588-3.108434 4.75-9.04935 4.75-17 0-7.973354-2.908531-13.900185-4.78125-17z');
+
+            var andPath = new Path2D('M30 5V45H50.47619c11.267908 0 20-9.000045 20-20s-8.732091-20-20-20H30zm2.857143 2.857143H50.47619c9.760663 0 16.666667 7.639955 16.666667 17.142857 0 9.502902-7.382195 17.142857-17.142857 17.142857H32.857143V7.857143z');
+
+            var notPath = new Path2D('M 28.9688 2.5938 v 44.8125 l 2.1563 -1.0625 l 41.0313 -20 v -1.3748 L 68.022 24.969 A 1 1 0 0 0 77.193 23.935 A 1 1 0 0 0 68.011 24.966 l 3.741 -1.591 z m 3 4.8125 L 68.0938 25 l -36.125 17.5938 V 7.4063 z');
+
+            function getLogicGateDiagram(node) {
+                console.log(node)
+
+
+                var canvas = document.createElement("canvas")
+                canvas.width = 4000
+                canvas.height = 12000
+                
+                var ctx = canvas.getContext("2d");
+
+                /*ctx.save()
+
+                var grd = ctx.createLinearGradient(0, 0, 4000, 0);
+                grd.addColorStop(0, "red");
+                grd.addColorStop(1, "white");
+
+                // Fill with gradient
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, canvas.width,canvas.height);
+
+                ctx.restore();*/
+                ctx.translate(canvas.width-100, canvas.height / 2);
+                ctx.font = '30px Arial';
+                node = mapNodes(node)
+                drawTree(node.input, 0, 0, ctx);
+
+
+                var bounds = contextBoundingBox(node.input)
+                var newCanvas = cropCanvas(canvas, canvas.width + bounds.minX - 100, canvas.height / 2 + bounds.minY - 25, bounds.w + 100, bounds.h + 100)
+                return newCanvas
+
+            }
+
+            function cropCanvas(canvas,x,y,width,height){
+                // create a temp canvas
+                const newCanvas = document.createElement('canvas');
+                // set its dimensions
+                newCanvas.width = width;
+                newCanvas.height = height;
+                // draw the canvas in the new resized temp canvas 
+                newCanvas.getContext('2d').drawImage(canvas, x, y, width, height, 0, 0, width, height);
+                return newCanvas
+            };
+
+            function contextBoundingBox(node,boundry) {
+                if (boundry === undefined) {
+                    boundry = { minX: node.x, minY: node.y, maxX: node.x, maxY: node.y };
+                }
+                // 0
+                if (node.x > boundry.maxX) {
+                    boundry.maxX = node.x
+                }
+
+                if (node.y > boundry.maxY) {
+                    boundry.maxY = node.y
+                }
+
+                if (node.x < boundry.minX) {
+                    boundry.minX = node.x
+                }
+
+                if (node.y < boundry.minY) {
+                    boundry.minY = node.y
+                }
+                
+                if (node.leftInput && node.rightInput) {
+                    contextBoundingBox(node.leftInput, boundry)
+                    contextBoundingBox(node.rightInput, boundry)
+                }
+                if (node.input) {
+                    contextBoundingBox(node.input, boundry)
+                }
+
+                boundry.w = boundry.maxX - boundry.minX
+                boundry.h = boundry.maxY - boundry.minY
+                return boundry
+            }
+            
+            function drawTree(node, depth, y, ctx) {
+
+                if (node.leftInput && node.rightInput) {
+                    var leftSize = getSizeOfNodes(node.leftInput) * ySize;
+                    var leftRightSize;
+                    var rightLeftSize;
+                    if (node.leftInput.rightInput)
+                        leftRightSize = getSizeOfNodes(node.leftInput.rightInput) * ySize;
+
+                    var rightSize = getSizeOfNodes(node.rightInput) * ySize;
+                    if (node.rightInput.leftInput)
+                        rightLeftSize = getSizeOfNodes(node.rightInput.leftInput) * ySize;
+
+                    ctx.save();
+                    console.log(node.circutType)
+                    node.x = -(depth * depthSize)
+                    node.y = y;
+                    ctx.translate(-(depth * depthSize), y);
+                    if (node.circutType == 'OR') {
+                        ctx.fill(orPath);
+                    } else if (node.circutType == 'AND') {
+                        ctx.fill(andPath)
+                    }
+                    ctx.restore();
+                    //ctx.fillText(node.circutType,-(depth*depthSize),y)
+
+                    //console.log(leftSize)
+                    //ctx.fillText(node.leftInput.circutType,-(depth*50),y-leftSize)
+                    //ctx.fillText(node.leftInput.circutType,-(depth*50),y+leftSize)
+                    if (leftRightSize)
+                        drawTree(node.leftInput, depth + 1, y - (2 * leftRightSize), ctx);
+                    else
+                        drawTree(node.leftInput, depth + 1, y - (leftSize), ctx)
+                    if (rightLeftSize)
+                        drawTree(node.rightInput, depth + 1, y + (2 * rightLeftSize), ctx);
+                    else
+                        drawTree(node.rightInput, depth + 1, y + (rightSize), ctx)
+                    drawBetweenNodes(node.leftInput, node, "leftInput",ctx)
+                    drawBetweenNodes(node.rightInput, node, "rightInput", ctx)
+
+                } else if (node.input) {
+ 
+                    ctx.save();
+                    if (node.circutType == 'NOT') {
+                        node.x = -(depth * depthSize)
+                        node.y = y;
+                        ctx.translate(-(depth * depthSize), y);
+                        ctx.fill(notPath)
+                    }
+                    ctx.restore();
+                    drawTree(node.input, depth + 1, y, ctx)
+                    drawBetweenNodes(node.input, node, "input", ctx)
+                } else if (node.circutType == 'INPUT') {
+                    node.x = -(depth * depthSize)
+                    node.y = y;
+                    ctx.fillText(node.inputVaraible, -(depth * depthSize) + 40, y + 35)
+                    ctx.beginPath();
+                    ctx.arc(-(depth * depthSize) + 50, y + 25, 20, 0, 2 * Math.PI);
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+
+                }
+
+            }
+
+            function drawLine(x1, y1, x2, y2, ctx) {
+                var distanceBetweenX = Math.abs(x1 - x2);
+                ctx.beginPath();
+                ctx.moveTo(x1, y1)
+                ctx.lineTo(x1 + (distanceBetweenX / 2), y1)
+                ctx.lineTo(x1 + (distanceBetweenX / 2), y2)
+                ctx.lineTo(x2, y2)
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            }
+
+            /**
+                 Due to the ugly nature of logic gate images, drawing it perfectly requires a handwritten list of line positions.
+                We manually adjust the positions of each line.
+            **/
+            function drawBetweenNodes(inputNode, outputNode, inputName, ctx) {
+
+                if (inputNode.circutType == 'INPUT' && outputNode.circutType == "NOT") {
+                    drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 25,ctx)
+                } else if (inputNode.circutType == 'INPUT' && outputNode.circutType == "AND") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'NOT' && outputNode.circutType == "AND") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'AND' && outputNode.circutType == "AND") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 30, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'AND' && outputNode.circutType == "OR") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'INPUT' && outputNode.circutType == "OR") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'NOT' && outputNode.circutType == "OR") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'OR' && outputNode.circutType == "NOT") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'OR' && outputNode.circutType == "OR") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                } else if (inputNode.circutType == 'AND' && outputNode.circutType == "NOT") {
+                    drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 25, ctx)
+                } else if (inputNode.circutType == 'OR' && outputNode.circutType == "AND") {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                }
+
+            }
+
+
             function initCanvasDraw() {
                 /** https://www.dwitter.net/d/1385 **/
                 /** Ported to normal javascript **/
@@ -232,13 +508,20 @@
                         result.kmapSolution.forEach((rect) => {
                             outputbox.addRectangle(rect)
                         })
+
+                        var newCanvas = getLogicGateDiagram(result.gateNodes)
+                        newCanvas.style["maxWidth"] = "600px";
+
+                        document.getElementById("logicgateLocation").innerHTML = "";
+                        document.getElementById("logicgateLocation").appendChild(newCanvas)
+
                         outputbox.initAnimation(document.getElementById("kmapOutput"))
                         $("#kmapFullContainer").css("display", "block")
                         //$("#truthtableContainer").css("display", "block")
                         document.getElementById("kmapAlgebraAnswer").innerHTML = result.algebraLatex
                         document.getElementById("truthtableLocation").innerHTML = result.truthTableHtml
                         JsFunc.RenderLatex();
-
+                        
 
                     })
 
@@ -278,6 +561,13 @@
                         result.kmapSolution.forEach((rect) => {
                             outputbox.addRectangle(rect)
                         })
+
+                        var newCanvas = getLogicGateDiagram(result.gateNodes)
+                        newCanvas.style["maxWidth"] = "600px";
+
+                        document.getElementById("logicgateLocation").innerHTML = "";
+                        document.getElementById("logicgateLocation").appendChild(newCanvas)
+
                         outputbox.initAnimation(document.getElementById("kmapOutput"))
                         $("#kmapFullContainer").css("display", "block")
                         //$("#truthtableContainer").css("display", "block")
@@ -488,6 +778,17 @@
                 } else {
                     $("#errorLocation").text("");
                 }
+
+                var originalCircut = getLogicGateDiagram(latexList[6])
+                originalCircut.style["max-width"]="600px"
+                var minimalCircut = getLogicGateDiagram(latexList[7])
+                minimalCircut.style["max-width"] = "600px"
+                $("#minimalView").empty();
+                $("#originalView").empty();
+                document.getElementById("originalView").appendChild(originalCircut)
+                document.getElementById("minimalView").appendChild(minimalCircut)
+                $("#logicgateContainer").css("display", "block")
+
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
                 if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
                     var div = document.createElement("div")
