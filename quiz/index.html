@@ -116,7 +116,23 @@
                 ctx.translate(canvas.width - 100, canvas.height / 2);
                 ctx.font = '30px Arial';
                 node = mapNodes(node)
-                drawTree(node.input, 0, 0, ctx);
+
+                positionNodes(node.input, 0, 0);
+                // This is very weird but required. It increases the percision every time.
+                moveNodesCloser(node.input);
+                moveNodesCloser(node.input);
+                moveNodesCloser(node.input);
+                moveNodesCloser(node.input);
+                moveNodesCloser(node.input);
+
+                centerNodes(node.input);
+                centerNodes(node.input);
+                centerNodes(node.input);
+                centerNodes(node.input);
+                centerNodes(node.input);
+                drawLogicGates(node.input, ctx)
+                
+                //drawTree(node.input, 0, 0, ctx);
 
 
                 var bounds = contextBoundingBox(node.input)
@@ -170,69 +186,96 @@
                 return boundry
             }
 
-            function drawTree(node, depth, y, ctx) {
+            function positionNodes(node, depth, y) {
 
                 if (node.leftInput && node.rightInput) {
                     var leftSize = getSizeOfNodes(node.leftInput) * ySize;
-                    var leftRightSize;
-                    var rightLeftSize;
-                    if (node.leftInput.rightInput)
-                        leftRightSize = getSizeOfNodes(node.leftInput.rightInput) * ySize;
-
                     var rightSize = getSizeOfNodes(node.rightInput) * ySize;
-                    if (node.rightInput.leftInput)
-                        rightLeftSize = getSizeOfNodes(node.rightInput.leftInput) * ySize;
 
-                    ctx.save();
+                    //ctx.save();
                     console.log(node.circutType)
-                    node.x = -(depth * depthSize)
-                    node.y = y;
-                    ctx.translate(-(depth * depthSize), y);
                     if (node.circutType == 'OR') {
-                        ctx.fill(orPath);
+                        node.x = -(depth * depthSize)
+                        node.y = y;
+                        //ctx.translate(-(depth*depthSize), y);
+                        //orPath.moveTo(-(depth*depthSize),y)
+                        //ctx.fill(orPath);
                     } else if (node.circutType == 'AND') {
-                        ctx.fill(andPath)
+                        node.x = -(depth * depthSize)
+                        node.y = y;
+                        //ctx.translate(-(depth*depthSize), y);
+                        //ctx.fill(andPath)
                     }
-                    ctx.restore();
+                    //ctx.restore();
                     //ctx.fillText(node.circutType,-(depth*depthSize),y)
 
                     //console.log(leftSize)
                     //ctx.fillText(node.leftInput.circutType,-(depth*50),y-leftSize)
                     //ctx.fillText(node.leftInput.circutType,-(depth*50),y+leftSize)
-                    if (leftRightSize)
-                        drawTree(node.leftInput, depth + 1, y - (2 * leftRightSize), ctx);
-                    else
-                        drawTree(node.leftInput, depth + 1, y - (leftSize), ctx)
-                    if (rightLeftSize)
-                        drawTree(node.rightInput, depth + 1, y + (2 * rightLeftSize), ctx);
-                    else
-                        drawTree(node.rightInput, depth + 1, y + (rightSize), ctx)
-                    drawBetweenNodes(node.leftInput, node, "leftInput", ctx)
-                    drawBetweenNodes(node.rightInput, node, "rightInput", ctx)
+                    positionNodes(node.leftInput, depth + 1, y - (leftSize))
+                    positionNodes(node.rightInput, depth + 1, y + (rightSize));
+                    //drawBetweenNodes(node.leftInput,node,"leftInput")
+                    //drawBetweenNodes(node.rightInput,node,"rightInput")
 
                 } else if (node.input) {
-
-                    ctx.save();
+                    var size = getSizeOfNodes(node.input) * ySize;
+                    //ctx.save();
                     if (node.circutType == 'NOT') {
                         node.x = -(depth * depthSize)
                         node.y = y;
-                        ctx.translate(-(depth * depthSize), y);
-                        ctx.fill(notPath)
+                        //ctx.translate(-(depth*depthSize), y);
+                        //ctx.fill(notPath)
                     }
-                    ctx.restore();
-                    drawTree(node.input, depth + 1, y, ctx)
-                    drawBetweenNodes(node.input, node, "input", ctx)
+                    //ctx.restore();
+                    positionNodes(node.input, depth + 1, y)
+                    //drawBetweenNodes(node.input,node,"input")
                 } else if (node.circutType == 'INPUT') {
                     node.x = -(depth * depthSize)
                     node.y = y;
-                    ctx.fillText(node.inputVaraible, -(depth * depthSize) + 40, y + 35)
-                    ctx.beginPath();
-                    ctx.arc(-(depth * depthSize) + 50, y + 25, 20, 0, 2 * Math.PI);
-                    ctx.lineWidth = 3;
-                    ctx.stroke();
+                    //ctx.fillText(node.inputVaraible,-(depth*depthSize)+40,y+35)
+                    //ctx.beginPath();
+                    //ctx.arc(-(depth*depthSize)+50, y+25, 20, 0, 2 * Math.PI);
+                    //ctx.lineWidth = 3;
+                    //ctx.stroke();
 
                 }
 
+            }
+
+            function drawLogicGates(node, ctx) {
+                ctx.save();
+                if (node.circutType == "AND") {
+                    ctx.translate(node.x, node.y);
+                    ctx.fill(andPath)
+                }
+                if (node.circutType == "OR") {
+                    ctx.translate(node.x, node.y);
+                    ctx.fill(orPath)
+                }
+                if (node.circutType == "NOT") {
+                    ctx.translate(node.x, node.y);
+                    ctx.fill(notPath)
+                }
+                if (node.circutType == "INPUT") {
+                    ctx.fillText(node.inputVaraible, node.x + 40, node.y + 35)
+                    ctx.beginPath();
+                    ctx.arc(node.x + 50, node.y + 25, 20, 0, 2 * Math.PI);
+                    ctx.lineWidth = 3;
+                    ctx.stroke();
+                }
+                ctx.restore()
+                if (node.leftInput) {
+                    drawLogicGates(node.leftInput, ctx)
+                    drawBetweenNodes(node.leftInput, node, "leftInput", ctx)
+                }
+                if (node.rightInput) {
+                    drawLogicGates(node.rightInput, ctx)
+                    drawBetweenNodes(node.rightInput, node, "rightInput", ctx)
+                }
+                if (node.input) {
+                    drawLogicGates(node.input, ctx)
+                    drawBetweenNodes(node.input, node, "input", ctx)
+                }
             }
 
             function drawLine(x1, y1, x2, y2, ctx) {
@@ -246,6 +289,65 @@
                 ctx.stroke();
             }
 
+            function getMinAndMax(node) {
+                var min = 0;
+                var max = 0;
+
+                var leftestNode = node
+                while (leftestNode.leftInput || leftestNode.input) {
+                    if (leftestNode.leftInput) leftestNode = leftestNode.leftInput;
+                    else if (leftestNode.input) leftestNode = leftestNode.input;
+                }
+                min = leftestNode.y
+
+                var righestNode = node
+
+                while (righestNode.rightInput || righestNode.input) {
+                    if (righestNode.rightInput) righestNode = righestNode.rightInput;
+                    else if (righestNode.input) righestNode = righestNode.input;
+
+                }
+                max = righestNode.y
+
+                return { min: min, max: max };
+            }
+            function moveNodesCloser(node) {
+                if (node.leftInput && node.rightInput) {
+                    var left = getMinAndMax(node.leftInput)
+                    var right = getMinAndMax(node.rightInput)
+                    var distance = right.min - left.max;
+                    console.log(right.min - left.max)
+                    moveNodes(node.rightInput, distance - ySize * 2)
+                    moveNodesCloser(node.leftInput)
+                    moveNodesCloser(node.rightInput)
+                } else if (node.input) {
+                    moveNodesCloser(node.input)
+                }
+            }
+
+            function moveNodes(node, changedY) {
+                node.y = node.y - changedY
+                if (node.leftInput && node.rightInput) {
+                    moveNodes(node.leftInput, changedY)
+                    moveNodes(node.rightInput, changedY)
+                } else if (node.input) {
+                    moveNodes(node.input, changedY)
+                }
+            }
+
+            function centerNodes(node) {
+                if (node.leftInput && node.rightInput) {
+                    var leftY = node.leftInput.y
+                    var rightY = node.rightInput.y
+                    var difference = leftY - rightY
+                    node.y = (leftY + rightY) / 2
+                    centerNodes(node.leftInput)
+                    centerNodes(node.rightInput)
+                } else if (node.input) {
+                    centerNodes(node.input)
+                }
+
+            }
             /**
                  Due to the ugly nature of logic gate images, drawing it perfectly requires a handwritten list of line positions.
                 We manually adjust the positions of each line.
@@ -309,6 +411,14 @@
                         drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
                     } else if (inputName == "rightInput") {
                         drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    }
+                } else {
+                    if (inputName == "leftInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 18, ctx)
+                    } else if (inputName == "rightInput") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 32, ctx)
+                    } else if (inputName == "input") {
+                        drawLine(inputNode.x + 70, inputNode.y + 25, outputNode.x + 31, outputNode.y + 25, ctx)
                     }
                 }
 
@@ -1693,3 +1803,4 @@
     </script>
 </body>
 </html>
+
