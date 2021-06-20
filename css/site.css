@@ -463,3 +463,9 @@ hr {
 		display: none;
 	}
 }
+
+.mq-empty::after {
+	visibility: visible !important;
+	content: "AB+AC(A+B)" !important;
+	color: #bebebe !important;
+}
