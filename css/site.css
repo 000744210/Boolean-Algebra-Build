@@ -72,8 +72,12 @@ hr {
 	
 }
 
-#kmapFullContainer {
+#allConvertBtn {
 	display:none;
+}
+
+#kmapFullContainer {
+	display: none;
 }
 
 #stepContainer {

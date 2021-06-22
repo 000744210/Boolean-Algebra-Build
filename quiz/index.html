@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boolean Algebra Quiz</title>
-    <meta name="description" content="Boolean Algebra simplifier & solver. Detailed steps, K-Map, Truth table, & Quizes" />
+    <meta name="description" content="Boolean Algebra expression simplifier & solver. Detailed steps, Logic circuits, K-Map, Truth table, & Quizes. All in one calculator." />
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
@@ -268,15 +268,15 @@
                 ctx.restore()
                 if (node.leftInput) {
                     drawLogicGates(node.leftInput, ctx)
-                    drawBetweenNodes(node.leftInput, node, "leftInput", ctx)
+                    drawBetweenNodes(node.leftInput, node, "leftInput",ctx)
                 }
                 if (node.rightInput) {
                     drawLogicGates(node.rightInput, ctx)
-                    drawBetweenNodes(node.rightInput, node, "rightInput", ctx)
+                    drawBetweenNodes(node.rightInput, node, "rightInput",ctx)
                 }
                 if (node.input) {
                     drawLogicGates(node.input, ctx)
-                    drawBetweenNodes(node.input, node, "input", ctx)
+                    drawBetweenNodes(node.input, node, "input",ctx)
                 }
             }
 
@@ -898,6 +898,8 @@
                 document.getElementById("minimalView").appendChild(minimalCircut)
                 $("#logicgateContainer").css("display", "block")
 
+                $("#allConvertBtn").css("display", "block")
+
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
                 if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
                     var div = document.createElement("div")
@@ -952,7 +954,7 @@
                 var sharedQuestion = answerMathField.latex();
 
                 sharedQuestion = sharedQuestion.replace(/\\overline/g, "").replace(/\\left/g, "").replace(/\\right/g, "");
-                copyToClipboard("https://www.boolean-algebra.com?q=" + window.btoa(sharedQuestion))
+                copyToClipboard("https://www.boolean-algebra.com"+location.pathname+"?q=" + window.btoa(sharedQuestion))
 
                 alert("The url has been copied to your clipboard.");
             },
@@ -1802,4 +1804,3 @@
     </script>
 </body>
 </html>
-
