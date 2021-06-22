@@ -24,12 +24,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.boolean-algebra.com/</loc>
-    <lastmod>2021-06-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://www.boolean-algebra.com/expression_to_logic_circuit/</loc>
     <lastmod>2021-06-22</lastmod>
     <changefreq>weekly</changefreq>
