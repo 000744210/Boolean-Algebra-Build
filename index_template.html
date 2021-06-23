@@ -93,8 +93,9 @@
 
             var notPath = new Path2D('M 28.9688 2.5938 v 44.8125 l 2.1563 -1.0625 l 41.0313 -20 v -1.3748 L 68.022 24.969 A 1 1 0 0 0 77.193 23.935 A 1 1 0 0 0 68.011 24.966 l 3.741 -1.591 z m 3 4.8125 L 68.0938 25 l -36.125 17.5938 V 7.4063 z');
 
+            var outputPath = new Path2D('M2410 4433 c-455 -49 -881 -353 -1082 -773 -94 -197 -132 -366 -132 -590 0 -235 34 -387 134 -598 70 -147 146 -250 287 -388 161 -159 165 -167 173 -379 4 -124 10 -168 23 -196 23 -46 79 -103 118 -119 28 -12 29 -14 29 -85 0 -73 19 -146 45 -175 12 -14 10 -23 -15 -74 -23 -45 -30 -72 -30 -115 1 -60 19 -122 44 -149 14 -16 12 -23 -14 -76 -66 -130 -19 -286 104 -346 38 -18 45 -27 55 -67 28 -111 116 -213 228 -265 57 -27 83 -33 159 -36 111 -5 175 11 261 67 76 49 138 129 167 215 19 59 26 68 66 89 54 28 105 92 121 150 16 61 6 148 -25 203 -24 44 -25 48 -10 65 25 28 43 89 44 150 0 43 -7 70 -30 115 -25 51 -27 60 -15 74 26 29 45 102 45 175 0 71 1 73 29 85 39 16 95 73 118 119 13 28 19 72 24 201 7 207 16 226 152 352 560 516 597 1382 83 1938 -264 285 -630 444 -1011 438 -60 -1 -126 -3 -145 -5z m430 -201 c237 -63 420 -170 584 -342 338 -354 422 -880 212 -1326 -67 -142 -138 -237 -277 -374 -107 -105 -133 -137 -161 -195 -32 -68 -33 -74 -38 -237 -5 -159 -6 -168 -29 -192 l-24 -26 -547 0 -547 0 -24 26 c-23 24 -24 33 -29 192 -5 162 -6 169 -38 236 -27 58 -54 91 -160 195 -70 69 -149 157 -175 195 -144 206 -217 436 -217 681 0 313 123 616 340 834 192 194 401 301 690 355 14 2 102 3 195 1 130 -2 188 -8 245 -23z m140 -2931 c0 -52 -3 -62 -26 -80 -26 -20 -38 -21 -394 -21 -356 0 -368 1 -394 21 -23 18 -26 28 -26 80 l0 59 420 0 420 0 0 -59z m-25 -306 c32 -31 33 -80 3 -112 l-21 -23 -376 0 c-371 0 -375 0 -398 22 -32 30 -31 81 2 113 l24 25 371 0 371 0 24 -25z m6 -344 c25 -31 24 -79 -3 -108 l-21 -23 -376 0 c-371 0 -375 0 -398 22 -38 36 -27 109 20 128 12 5 188 8 390 7 l369 -2 19 -24z m-184 -353 c-28 -49 -100 -103 -160 -119 -99 -27 -224 28 -275 120 l-23 41 241 0 242 0 -25 -42z')
+
             function getLogicGateDiagram(node) {
-                console.log(node)
 
 
                 var canvas = document.createElement("canvas")
@@ -102,7 +103,7 @@
                 canvas.height = 12000
 
                 var ctx = canvas.getContext("2d");
-
+ 
                 /*ctx.save()
 
                 var grd = ctx.createLinearGradient(0, 0, 4000, 0);
@@ -118,28 +119,26 @@
                 ctx.font = '30px Arial';
                 node = mapNodes(node)
 
-                positionNodes(node.input, 0, 0);
+                positionNodes(node, 0, 0);
+
                 // This is very weird but required. It increases the percision every time.
-                moveNodesCloser(node.input);
-                moveNodesCloser(node.input);
-                moveNodesCloser(node.input);
-                moveNodesCloser(node.input);
-                moveNodesCloser(node.input);
+                moveNodesCloser(node);
+                moveNodesCloser(node);
+                moveNodesCloser(node);
+                moveNodesCloser(node);
+                moveNodesCloser(node);
+
+                centerNodes(node);
+                centerNodes(node);
+                centerNodes(node);
+                centerNodes(node);
+                centerNodes(node);
+
+                drawLogicGates(node, ctx)
 
 
-                centerNodes(node.input);
-                centerNodes(node.input);
-                centerNodes(node.input);
-                centerNodes(node.input);
-                centerNodes(node.input);
-
-                drawLogicGates(node.input, ctx)
-
-                //drawTree(node.input, 0, 0, ctx);
-
-
-                var bounds = contextBoundingBox(node.input)
-                var newCanvas = cropCanvas(canvas, canvas.width + bounds.minX - 100, canvas.height / 2 + bounds.minY - 25, bounds.w + 100, bounds.h + 100)
+                var bounds = contextBoundingBox(node)
+                var newCanvas = cropCanvas(canvas, canvas.width + bounds.minX - 100, canvas.height / 2 + bounds.minY - 50, bounds.w + 100, bounds.h + 125)
                 return newCanvas
 
             }
@@ -196,7 +195,7 @@
                     var rightSize = getSizeOfNodes(node.rightInput) * ySize;
 
                     //ctx.save();
-                    console.log(node.circutType)
+
                     if (node.circutType == 'OR') {
                         node.x = -(depth * depthSize)
                         node.y = y;
@@ -228,6 +227,9 @@
                         node.y = y;
                         //ctx.translate(-(depth*depthSize), y);
                         //ctx.fill(notPath)
+                    } else if (node.circutType == 'OUTPUT') {
+                        node.x = -(depth * depthSize)
+                        node.y = y;
                     }
                     //ctx.restore();
                     positionNodes(node.input, depth + 1, y)
@@ -265,6 +267,13 @@
                     ctx.arc(node.x + 50, node.y + 25, 20, 0, 2 * Math.PI);
                     ctx.lineWidth = 3;
                     ctx.stroke();
+                }
+                if (node.circutType == "OUTPUT") {
+                    ctx.translate(node.x+69, node.y+26);
+                    ctx.scale(.015, .015)
+                    ctx.rotate(180 * Math.PI / 180)
+                    
+                    ctx.fill(outputPath)
                 }
                 ctx.restore()
                 if (node.leftInput) {
@@ -319,7 +328,7 @@
                     var left = getMinAndMax(node.leftInput)
                     var right = getMinAndMax(node.rightInput)
                     var distance = right.min - left.max;
-                    console.log(right.min - left.max)
+
                     moveNodes(node.rightInput, distance - ySize * 2)
                     moveNodesCloser(node.leftInput)
                     moveNodesCloser(node.rightInput)
@@ -1015,7 +1024,7 @@
                 var x = this.decode(parseInt(sides[0], 2))
                 var y = this.decode(parseInt(sides[1], 2))
                 this.addRectangle({ x: x, y: y, w: 1, h: 1 })
-                console.log(this)
+
             }
 
             saveState() {
