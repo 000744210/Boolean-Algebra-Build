@@ -845,6 +845,7 @@
                 MQ.StaticMath(document.getElementById("solvedAnswer"))
 
                 $("#stepList").empty();
+                $("#posStepList").empty();
 
                 latexList[0].forEach(function (item, index) {
                     $("#stepList").append("<hr class='stepsHr'>");
@@ -853,7 +854,13 @@
                     //$("#stepList").append("<div class='step-title'>Apply Demogan Theorem: <span class='step-data'>\\overline{A+B} = \\overline{A}\\overline{B}</span></div>")
                     $("#stepList").append("<div class='step-data'>" + item[0] + "</div>")
                 })
+                latexList[8].forEach(function (item, index) {
+                    $("#posStepList").append("<hr class='stepsHr'>");
 
+                    $("#posStepList").append("<div class='step-title'>" + item[1] + "</div>")
+                    //$("#stepList").append("<div class='step-title'>Apply Demogan Theorem: <span class='step-data'>\\overline{A+B} = \\overline{A}\\overline{B}</span></div>")
+                    $("#posStepList").append("<div class='step-data'>" + item[0] + "</div>")
+                })
                 $("#truthtableLocation").html(latexList[2]);
 
                 var stepdata = document.getElementsByClassName("step-data");

@@ -76,6 +76,10 @@ hr {
 	display:none;
 }
 
+#showPOSBtn {
+	display:none;
+}
+
 #kmapFullContainer {
 	display: none;
 }
