@@ -331,10 +331,6 @@ hr {
 	}
 }
 
-.affiliate1 {
-
-
-}
 
 .slide {
 	transition: 1s;
@@ -471,7 +467,12 @@ hr {
 		display: none;
 	}
 }
-
+.affiliate1 {
+	margin-left: auto;
+	margin-right: auto;
+	/* display: inline-block; */
+	width: 340px;
+}
 .mq-empty.mq-root-block::after {
 	visibility: visible !important;
 	content: "AB+AC(A+B)" !important;
