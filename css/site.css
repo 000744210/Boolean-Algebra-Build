@@ -473,8 +473,8 @@ hr {
 	/* display: inline-block; */
 	width: 340px;
 }
-/*.mq-empty.mq-root-block::after {
+.mq-empty.mq-root-block::after {
 	visibility: visible !important;
 	content: "AB+AC(A+B)" !important;
 	color: #bebebe !important;
-}*/
+}
