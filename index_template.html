@@ -107,7 +107,7 @@
                 canvas.height = 12000
 
                 var ctx = canvas.getContext("2d");
- 
+
                 /*ctx.save()
 
                 var grd = ctx.createLinearGradient(0, 0, 4000, 0);
@@ -273,24 +273,24 @@
                     ctx.stroke();
                 }
                 if (node.circutType == "OUTPUT") {
-                    ctx.translate(node.x+69, node.y+26);
+                    ctx.translate(node.x + 69, node.y + 26);
                     ctx.scale(.015, .015)
                     ctx.rotate(180 * Math.PI / 180)
-                    
+
                     ctx.fill(outputPath)
                 }
                 ctx.restore()
                 if (node.leftInput) {
                     drawLogicGates(node.leftInput, ctx)
-                    drawBetweenNodes(node.leftInput, node, "leftInput",ctx)
+                    drawBetweenNodes(node.leftInput, node, "leftInput", ctx)
                 }
                 if (node.rightInput) {
                     drawLogicGates(node.rightInput, ctx)
-                    drawBetweenNodes(node.rightInput, node, "rightInput",ctx)
+                    drawBetweenNodes(node.rightInput, node, "rightInput", ctx)
                 }
                 if (node.input) {
                     drawLogicGates(node.input, ctx)
-                    drawBetweenNodes(node.input, node, "input",ctx)
+                    drawBetweenNodes(node.input, node, "input", ctx)
                 }
             }
 
@@ -467,6 +467,11 @@
             initCanvasDraw();
         </script>
     </app>
+    <div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:10px">
+        <h3 class="center">Unlimited, no throttle, file sharing site.</h3>
+        <p>Try out my other site. <a href="https://uploadtransfer.com/" target="_blank">https://uploadtransfer.com/</a></p>
+        <p>Using peer to peer to send files is the most efficent way to send a file to someone.</p>
+    </div>
     <div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:10px">
         <h3 class="center">Want to practice or learn SQL?</h3>
         <p>Try out my other site. <a href="https://www.sql-practice.com/" target="_blank">https://www.sql-practice.com/</a></p>
@@ -977,7 +982,7 @@
                 var sharedQuestion = answerMathField.latex();
 
                 sharedQuestion = sharedQuestion.replace(/\\overline/g, "").replace(/\\left/g, "").replace(/\\right/g, "");
-                copyToClipboard("https://www.boolean-algebra.com"+location.pathname+"?q=" + window.btoa(sharedQuestion))
+                copyToClipboard("https://www.boolean-algebra.com" + location.pathname + "?q=" + window.btoa(sharedQuestion))
 
                 alert("The url has been copied to your clipboard.");
             },
