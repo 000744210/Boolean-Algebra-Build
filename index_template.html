@@ -23,9 +23,8 @@
 
         gtag('config', 'UA-150354135-1');
     </script>
-    <script>window.nitroAds = window.nitroAds || { createAd: function () { window.nitroAds.queue.push(["createAd", arguments]) }, addUserToken: function () { window.nitroAds.queue.push(["addUserToken", arguments]) }, queue: [] };</script>
-    <script async src="https://s.nitropay.com/ads-954.js"></script>
-    <!--<script data-ad-client="ca-pub-3710933901766821" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+
+    <script data-ad-client="ca-pub-3710933901766821" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 </head>
 <body>
@@ -716,69 +715,9 @@
             OnPageLoadGlobal: function () {
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
                 if (/*typeof (window.google_jobrunner) !== "undefined" &&*/ !isBot) {
-                    if (document.getElementById("ad-spot2") && document.getElementById("ad-spot2").children.length == 0) {
-                        var div = document.createElement("div")
-                        var script = document.createElement("script");
-
-                        div.setAttribute('id', 'left');
-                        var inlineScript = document.createTextNode(`console.log("loaded script 2");window['nitroAds'].createAd('left', {
-  "refreshLimit": 10,
-  "refreshTime": 60,
-  "renderVisibleOnly": false,
-  "refreshVisibleOnly": true,
-  "sizes":  [
-    [
-      "300",
-      "600"
-    ]
-  ],
-  "report": {
-    "enabled": true,
-    "wording": "Report Ad",
-    "position": "top-right"
-  }
-});`);
-                        script.appendChild(inlineScript);
-                        document.getElementById("ad-spot2").appendChild(div)
-                        document.getElementById("ad-spot2").appendChild(script)
-                    }
-
-                    if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
-
-                        var div = document.createElement("div")
-                        var script = document.createElement("script");
-
-                        div.setAttribute('id', 'bottom');
-                        var inlineScript = document.createTextNode(`console.log("loaded script 1");window['nitroAds'].createAd('bottom', {
-  "refreshLimit": 10,
-  "refreshTime": 60,
-  "renderVisibleOnly": false,
-  "refreshVisibleOnly": true,
-  "sizes":  [
-    [
-      "970",
-      "250"
-    ],
-    [
-      "300",
-      "250"
-    ]
-    ],
-  "report": {
-    "enabled": true,
-    "wording": "Report Ad",
-    "position": "top-right"
-  }
-});`);
-                        script.appendChild(inlineScript); 
-                        document.getElementById("ad-spot").appendChild(div)
-                        document.getElementById("ad-spot").appendChild(script)
-                    }
-
-
 
                     //console.log("RUNNING GOOGLE ADS")
-                    /*
+                    
                     if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
                         var div = document.createElement("div")
                         var script = document.createElement("script");
@@ -827,7 +766,7 @@
                         div.appendChild(script2);
                         document.getElementById("ad-spot2").appendChild(div)
 
-                    }*/
+                    }
                 }
                 /*setTimeout(function () {
                     if (typeof (window.google_jobrunner) === "undefined") {
@@ -996,32 +935,8 @@
                 var isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)
                 if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
 
-                        var div = document.createElement("div")
-                        var script = document.createElement("script");
 
-                        div.setAttribute('id', 'middle');
-                        var inlineScript = document.createTextNode(`console.log("loaded script 4");window['nitroAds'].createAd('middle', {
-  "refreshLimit": 10,
-  "refreshTime": 60,
-  "renderVisibleOnly": false,
-  "refreshVisibleOnly": true,
-  "sizes":  [
-    [
-      "300",
-      "250"
-    ]
-  ],
-  "report": {
-    "enabled": true,
-    "wording": "Report Ad",
-    "position": "top-right"
-  }
-});`);
-                        script.appendChild(inlineScript);
-                        document.getElementById("ad-spot3").appendChild(div)
-                        document.getElementById("ad-spot3").appendChild(script)
-
-                    /*
+                    
                     var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
@@ -1043,36 +958,12 @@
                     div.appendChild(ins);
                     div.appendChild(script2);
                     document.getElementById("ad-spot3").appendChild(div)
-                    */
+                    
                 }
                 if (document.getElementById("ad-spot2-right") && document.getElementById("ad-spot2-right").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
                     
-                        var div = document.createElement("div")
-                        var script = document.createElement("script");
 
-                        div.setAttribute('id', 'right');
-                        var inlineScript = document.createTextNode(`console.log("loaded script 3");window['nitroAds'].createAd('right', {
-  "refreshLimit": 10,
-  "refreshTime": 60,
-  "renderVisibleOnly": false,
-  "refreshVisibleOnly": true,
-  "sizes":  [
-    [
-      "300",
-      "600"
-    ]
-  ],
-  "report": {
-    "enabled": true,
-    "wording": "Report Ad",
-    "position": "top-right"
-  }
-});`);
-                        script.appendChild(inlineScript);
-                        document.getElementById("ad-spot2-right").appendChild(div)
-                        document.getElementById("ad-spot2-right").appendChild(script)
-
-                    /*
+                    
                     var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
@@ -1095,7 +986,7 @@
                     div.appendChild(ins);
                     div.appendChild(script2);
                     document.getElementById("ad-spot2-right").appendChild(div)
-                    */
+                    
                 }
 
             },
