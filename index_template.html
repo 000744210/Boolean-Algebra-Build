@@ -1144,11 +1144,18 @@
                                 break;
                             }
                         }
-                        this.paths.splice(index, 1)
+
+                        if (this.paths[index].rawTile.dontcare) {
+                            this.paths.splice(index, 1)
+                        } else {
+                            var tile = { x: xPos, y: yPos, w: 1, h: 1, dontcare: true }
+                            this.paths[index] = this.rectangleToPath(tile)
+                            this.paths[index].rawTile = tile
+                        }
                     } else {
-                        this.addRectangle({ x: xPos, y: yPos, w: 1, h: 1 })
+                        this.addRectangle({ x: xPos, y: yPos, w: 1, h: 1, dontcare:false })
                     }
-                    if (this.onInput) this.onInput(this.paths.map(path => { return { 'x': path.rawTile.x, 'y': path.rawTile.y } }));
+                    if (this.onInput) this.onInput(this.paths.map(path => { return { 'x': path.rawTile.x, 'y': path.rawTile.y,'dontcare':path.rawTile.dontcare } }));
                     this.draw(canvas);
                 }
 
@@ -1267,52 +1274,61 @@
                 format:{x,y,w,h}. x,y starts at 1</Tile>
                 */
             rectangleToPath(tile) {
-                let fillPath = new Path2D();
-                let strokePath = new Path2D();
+                if (tile.dontcare == false) {
+                    let fillPath = new Path2D();
+                    let strokePath = new Path2D();
 
-                for (let y = (tile.y - 1) * 2; y < (tile.y - 1 + tile.h) * 2; y++) {
-                    for (let x = (tile.x - 1) * 2; x < (tile.x - 1 + tile.w) * 2; x++) {
-                        let isStartOfXLoop = (x === (tile.x - 1) * 2);
-                        let isStartOfYLoop = (y === (tile.y - 1) * 2);
+                    for (let y = (tile.y - 1) * 2; y < (tile.y - 1 + tile.h) * 2; y++) {
+                        for (let x = (tile.x - 1) * 2; x < (tile.x - 1 + tile.w) * 2; x++) {
+                            let isStartOfXLoop = (x === (tile.x - 1) * 2);
+                            let isStartOfYLoop = (y === (tile.y - 1) * 2);
 
-                        let isEndOfXLoop = x + 1 === (tile.x - 1 + tile.w) * 2;
-                        let isEndOfYLoop = y + 1 === (tile.y - 1 + tile.h) * 2;
+                            let isEndOfXLoop = x + 1 === (tile.x - 1 + tile.w) * 2;
+                            let isEndOfYLoop = y + 1 === (tile.y - 1 + tile.h) * 2;
 
-                        let realX = ((x % (this.slotsWidth * 2)) + (this.slotsWidth * 2)) % (this.slotsWidth * 2);
-                        let realY = ((y % (this.slotsHeight * 2)) + (this.slotsHeight * 2)) % (this.slotsHeight * 2);
+                            let realX = ((x % (this.slotsWidth * 2)) + (this.slotsWidth * 2)) % (this.slotsWidth * 2);
+                            let realY = ((y % (this.slotsHeight * 2)) + (this.slotsHeight * 2)) % (this.slotsHeight * 2);
 
-                        //console.log(realX,realY);
+                            //console.log(realX,realY);
 
-                        if (isStartOfXLoop && isStartOfYLoop) {
-                            fillPath.addPath(this.buildTopLeft(realX, realY)(true));
-                            strokePath.addPath(this.buildTopLeft(realX, realY)(false));
-                        } else if (isStartOfYLoop && isEndOfXLoop) {
-                            fillPath.addPath(this.buildTopRight(realX, realY)(true));
-                            strokePath.addPath(this.buildTopRight(realX, realY)(false));
-                        } else if (isEndOfYLoop && isEndOfXLoop) {
-                            fillPath.addPath(this.buildBottomRight(realX, realY)(true));
-                            strokePath.addPath(this.buildBottomRight(realX, realY)(false));
-                        } else if (isStartOfXLoop && isEndOfYLoop) {
-                            fillPath.addPath(this.buildBottomLeft(realX, realY)(true));
-                            strokePath.addPath(this.buildBottomLeft(realX, realY)(false));
-                        } else if (isStartOfXLoop) {
-                            fillPath.addPath(this.buildLeftWall(realX, realY)(true));
-                            strokePath.addPath(this.buildLeftWall(realX, realY)(false));
-                        } else if (isStartOfYLoop) {
-                            fillPath.addPath(this.buildTopWall(realX, realY)(true));
-                            strokePath.addPath(this.buildTopWall(realX, realY)(false));
-                        } else if (isEndOfXLoop) {
-                            fillPath.addPath(this.buildRightWall(realX, realY)(true));
-                            strokePath.addPath(this.buildRightWall(realX, realY)(false));
-                        } else if (isEndOfYLoop) {
-                            fillPath.addPath(this.buildBottomWall(realX, realY)(true));
-                            strokePath.addPath(this.buildBottomWall(realX, realY)(false));
-                        } else {
-                            fillPath.addPath(this.buildCenter(realX, realY)(true));
+                            if (isStartOfXLoop && isStartOfYLoop) {
+                                fillPath.addPath(this.buildTopLeft(realX, realY)(true));
+                                strokePath.addPath(this.buildTopLeft(realX, realY)(false));
+                            } else if (isStartOfYLoop && isEndOfXLoop) {
+                                fillPath.addPath(this.buildTopRight(realX, realY)(true));
+                                strokePath.addPath(this.buildTopRight(realX, realY)(false));
+                            } else if (isEndOfYLoop && isEndOfXLoop) {
+                                fillPath.addPath(this.buildBottomRight(realX, realY)(true));
+                                strokePath.addPath(this.buildBottomRight(realX, realY)(false));
+                            } else if (isStartOfXLoop && isEndOfYLoop) {
+                                fillPath.addPath(this.buildBottomLeft(realX, realY)(true));
+                                strokePath.addPath(this.buildBottomLeft(realX, realY)(false));
+                            } else if (isStartOfXLoop) {
+                                fillPath.addPath(this.buildLeftWall(realX, realY)(true));
+                                strokePath.addPath(this.buildLeftWall(realX, realY)(false));
+                            } else if (isStartOfYLoop) {
+                                fillPath.addPath(this.buildTopWall(realX, realY)(true));
+                                strokePath.addPath(this.buildTopWall(realX, realY)(false));
+                            } else if (isEndOfXLoop) {
+                                fillPath.addPath(this.buildRightWall(realX, realY)(true));
+                                strokePath.addPath(this.buildRightWall(realX, realY)(false));
+                            } else if (isEndOfYLoop) {
+                                fillPath.addPath(this.buildBottomWall(realX, realY)(true));
+                                strokePath.addPath(this.buildBottomWall(realX, realY)(false));
+                            } else {
+                                fillPath.addPath(this.buildCenter(realX, realY)(true));
+                            }
                         }
                     }
+                    return { stroke: strokePath, fill: fillPath, solution: tile.eq };
+                } else {
+                    let fillPath = new Path2D();
+                    fillPath.moveTo(tile.x * 40, tile.y * 40)
+                    fillPath.lineTo(tile.x * 40 + 20, tile.y * 40 + 20)
+                    fillPath.moveTo(tile.x * 40, tile.y * 40 + 20)
+                    fillPath.lineTo(tile.x * 40 + 20, tile.y * 40)
+                    return { stroke: fillPath, fill: fillPath, solution: tile.eq };
                 }
-                return { stroke: strokePath, fill: fillPath, solution: tile.eq };
             }
 
             /*
