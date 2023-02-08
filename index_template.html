@@ -468,11 +468,11 @@
             initCanvasDraw();
         </script>
     </app>
-    <div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:10px">
+    <!--<div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:10px">
         <h3 class="center">Play competitive brain games.</h3>
         <p>Try out my other site. <a href="https://www.compareminds.com" target="_blank">https://compareminds.com</a></p>
         <p>Play skill based games and compare your score with the rest of the world.</p>
-    </div>
+    </div>-->
     <div class="main-web-width" style="text-align:center;border: 1px solid #acacac;border-radius: 11px;margin-top:10px;margin-bottom:100px">
         <h3 class="center">Want to practice or learn SQL?</h3>
         <p>Try out my other site. <a href="https://www.sql-practice.com/" target="_blank">https://www.sql-practice.com/</a></p>
@@ -718,7 +718,7 @@
                 if (/*typeof (window.google_jobrunner) !== "undefined" &&*/ !isBot) {
 
                     //console.log("RUNNING GOOGLE ADS")
-                    
+
                     if (document.getElementById("ad-spot") && document.getElementById("ad-spot").children.length == 0) {
                         var div = document.createElement("div")
                         var script = document.createElement("script");
@@ -937,7 +937,7 @@
                 if (document.getElementById("ad-spot3") && document.getElementById("ad-spot3").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
 
 
-                    
+
                     var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
@@ -959,12 +959,12 @@
                     div.appendChild(ins);
                     div.appendChild(script2);
                     document.getElementById("ad-spot3").appendChild(div)
-                    
+
                 }
                 if (document.getElementById("ad-spot2-right") && document.getElementById("ad-spot2-right").children.length == 0 /*&& typeof (window.google_jobrunner) !== "undefined"*/ && !isBot) {
-                    
 
-                    
+
+
                     var div = document.createElement("div")
                     var script = document.createElement("script");
                     script.async = true;
@@ -987,7 +987,7 @@
                     div.appendChild(ins);
                     div.appendChild(script2);
                     document.getElementById("ad-spot2-right").appendChild(div)
-                    
+
                 }
 
             },
@@ -1154,9 +1154,9 @@
                             this.paths[index].rawTile = tile
                         }
                     } else {
-                        this.addRectangle({ x: xPos, y: yPos, w: 1, h: 1, dontcare:false })
+                        this.addRectangle({ x: xPos, y: yPos, w: 1, h: 1, dontcare: false })
                     }
-                    if (this.onInput) this.onInput(this.paths.map(path => { return { 'x': path.rawTile.x, 'y': path.rawTile.y,'dontcare':path.rawTile.dontcare } }));
+                    if (this.onInput) this.onInput(this.paths.map(path => { return { 'x': path.rawTile.x, 'y': path.rawTile.y, 'dontcare': path.rawTile.dontcare } }));
                     this.draw(canvas);
                 }
 
