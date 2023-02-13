@@ -474,6 +474,12 @@ hr {
 	#ad-spot2-right {
 		display: none;
 	}
+	#boolean-algebra_com_right_ad {
+		display:none!important;
+	}
+	#boolean-algebra_com_left_ad {
+		display: none!important;
+	}
 }
 
 @media (max-width: 1180px) {
