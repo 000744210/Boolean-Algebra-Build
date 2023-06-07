@@ -469,6 +469,10 @@ hr {
 	right: 0;
 }
 
+#myAd {
+	display:grid;
+
+}
 
 @media (max-width: 1280px) {
 	#ad-spot2-right {
