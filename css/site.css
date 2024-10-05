@@ -12,6 +12,28 @@ app {
 	position: relative;
 }
 
+
+.split-grid {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap:10px;
+}
+.split-grid3 {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	gap: 10px;
+}
+.learningpage .expression-container .step-data {
+	border: 1px solid #d5d5d5;
+	margin: 3px;
+	margin-left: 3px;
+}
+
+.expression-container {
+	margin-left:30px;
+
+}
+
 .main-web-width {
 	max-width: 600px;
 	margin-left: auto;
@@ -70,6 +92,10 @@ hr {
 	color: gray;
 	border-top-color: gray !important;
 	
+}
+
+.law_title {
+	margin-top:33px;
 }
 
 #allConvertBtn {
@@ -257,29 +283,29 @@ hr {
 }
 
 /*TRUTH TABLE*/
-#truthtableLocation th, #truthtableLocation td {
+.truthtable th, .truthtable td {
 	border: solid #CCC;
 	border-width: 1px 0 0 1px;
 	padding: 2px 5px;
 }
 
-#truthtableLocation th {
+.truthtable th {
 	background-color: #F0F0F0;
 }
 
-#truthtableLocation td.true {
+.truthtable td.true {
 	color: green;
 }
 
-#truthtableLocation td.false {
+.truthtable td.false {
 	color: red;
 }
 
-#truthtableLocation tr:hover td {
+.truthtable tr:hover td {
 	background-color: #F0F0F0;
 }
 
-#truthtableLocation table {
+.truthtable table {
 	border: solid #CCC;
 	border-width: 0 1px 1px 0;
 	margin-top: 10px;

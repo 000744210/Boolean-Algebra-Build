@@ -728,7 +728,7 @@
                         })
 
                         var newCanvas = getLogicGateDiagram(result.gateNodes)
-                        newCanvas.style["maxWidth"] = "600px";
+                        newCanvas.style["maxWidth"] = "100%";
 
                         document.getElementById("logicgateLocation").innerHTML = "";
                         document.getElementById("logicgateLocation").appendChild(newCanvas)
@@ -782,7 +782,7 @@
                         })
 
                         var newCanvas = getLogicGateDiagram(result.gateNodes)
-                        newCanvas.style["maxWidth"] = "600px";
+                        newCanvas.style["maxWidth"] = "100%";
 
                         document.getElementById("logicgateLocation").innerHTML = "";
                         document.getElementById("logicgateLocation").appendChild(newCanvas)
@@ -1011,9 +1011,9 @@
                 }
 
                 var originalCircut = getLogicGateDiagram(latexList[6])
-                originalCircut.style["max-width"] = "600px"
+                originalCircut.style["max-width"] = "100%"
                 var minimalCircut = getLogicGateDiagram(latexList[7])
-                minimalCircut.style["max-width"] = "600px"
+                minimalCircut.style["max-width"] = "100%"
                 $("#minimalView").empty();
                 $("#originalView").empty();
                 document.getElementById("originalView").appendChild(originalCircut)
